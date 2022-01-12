@@ -1,0 +1,139 @@
+#pragma once
+#ifndef _H_EL_MSG_DEFN
+#define _H_EL_MSG_DEFN
+#pragma once
+
+#include <vector>
+using namespace std;
+
+#define CMDCODE_DF_RX_SPECTRUM_RESULT			(0x25)  //스펙트럼 결과
+#define CMDCODE_DF_RX_SYSTEM_SET_INFO			(0x23)  //시스템 설정
+#define CMDCODE_DF_RX_TASK_REQ_LIST				(0x21)  //수집과제 요구
+#define CMDCODE_DF_RX_TASK_REQ_START			(0x11)  //과제 시작 요구
+
+typedef struct {
+	unsigned char uchO: 4;
+	unsigned char uchClass: 4;
+	unsigned char uchCMDCode;
+	unsigned char uchDest;
+	unsigned char uchSrc;
+
+} SEL_BITMAP_OPCODE ;
+
+
+typedef union {
+	unsigned int w32;
+	SEL_BITMAP_OPCODE bData;
+
+} UEL_BITMAP_OPCode ;
+
+struct SRxSpectrumData
+{
+	unsigned int uiAcqID;
+	unsigned int uiAcqDataNum;
+	USHORT usSprData[8192];
+
+	SRxSpectrumData() :
+		uiAcqID(0),
+		uiAcqDataNum(0)
+	{
+		memset(usSprData, 0, 8192*sizeof(USHORT));
+	}
+};
+
+struct SRxSpectrumCmd
+{
+	unsigned int uiReqSprtinfo; //시작 : 1, 중지 :2
+	
+	SRxSpectrumCmd() :
+	uiReqSprtinfo(0)
+	{
+	}
+};
+
+struct SRxTSGCtrlResult{    //수집시작 결과
+	int iResult;
+	SRxTSGCtrlResult():
+	iResult(0)
+	{
+
+	}
+};
+
+struct STxAcqStartRequest{   //수집시작 요구
+	int	iMode;
+	STxAcqStartRequest() :
+	iMode(0)
+	{
+	}
+};
+
+struct STxAcqTraskData{   //수집 과제 정보
+	unsigned int	uiNBDRBandWidth;
+	int				iRxThresholdValue;
+	unsigned int	uiAcquisitionTime;
+	unsigned int	uiNumOfAcqPuls;
+
+	STxAcqTraskData() :
+	uiNBDRBandWidth(0),
+		iRxThresholdValue(0),
+		uiAcquisitionTime(0),
+		uiNumOfAcqPuls(0)
+	{
+	}
+};
+
+struct STxAcqTraskRequest{   //수집 과제 요구
+	unsigned int	uiNumOfTask;
+	STxAcqTraskData		stTaskData;
+
+	STxAcqTraskRequest() :	
+	uiNumOfTask(0)
+	{
+	}
+};
+
+
+
+struct STxSystemVariable{				//시스템 설정변수
+	unsigned int	uiCollectorID;
+	unsigned int	uiRxThresholdMode;
+	unsigned int	uiCWDecisionPW;
+	unsigned int	uiCWChoppinginterval;
+	unsigned int	uiSignalCheckTime;
+	unsigned int	uiSignalCheckPulseNumber;
+	unsigned int	uiFilterType;
+	unsigned int	uilsCWFilterApply;
+	unsigned int	uilsFreqFilterApply;
+	unsigned int	uiFilterMinFreq;
+	unsigned int	uiFilterMaxFreq;
+	unsigned int	uilsPAFilterApply;
+	int				iFilterMinPA;
+	int				iFilterMaxPA;
+	unsigned int	uilsPWFilterApply;
+	unsigned int	uiFilterMinPW;
+	unsigned int	uiFilterMaxPW;
+
+	STxSystemVariable() :
+		uiCollectorID(0),
+		uiRxThresholdMode(0),
+		uiCWDecisionPW(0),
+		uiCWChoppinginterval(0),
+		uiSignalCheckTime(0),
+		uiSignalCheckPulseNumber(0),
+		uiFilterType(0),
+		uilsCWFilterApply(0),
+		uilsFreqFilterApply(0),
+		uiFilterMinFreq(0),
+		uiFilterMaxFreq(0),
+		uilsPAFilterApply(0),
+		iFilterMinPA(0),
+		iFilterMaxPA(0),
+		uilsPWFilterApply(0),
+		uiFilterMinPW(0),
+		uiFilterMaxPW(0)	
+	{
+	}
+};
+
+#endif
