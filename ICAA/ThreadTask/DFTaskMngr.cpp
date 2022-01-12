@@ -1725,7 +1725,7 @@ int CDFTaskMngr::GetIndexFreq(UINT iFreq)
 int CDFTaskMngr::GetAOADataFromAlgrism(UINT iFreq, int i_idxFreq, float * fchMeasPhDiffData)
 {
 	bool result = true;
-	int iAOA;
+	int iAOA=0;
 	string strFilePath;
 	std::ifstream in;
 	strFilePath = "C:\\IdexFreq\\CHData_Done.csv";
