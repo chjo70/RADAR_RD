@@ -190,7 +190,7 @@ CRadarAnalysisMngr::CRadarAnalysisMngr()
 	m_CHCALCurrent = 5;
 	m_CHCALCurrentReslt = 5;
 	// 시작시 한번만 호출하면 됩니다.
-	//RadarAnlAlgotirhm::RadarAnlAlgotirhm::Init();
+	RadarAnlAlgotirhm::RadarAnlAlgotirhm::Init();
 }
 
 CRadarAnalysisMngr::~CRadarAnalysisMngr()

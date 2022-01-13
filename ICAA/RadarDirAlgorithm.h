@@ -11,48 +11,47 @@
 #define WM_USER_LOGMSG				(7011)
 
 
+
 //
 // RADARDIR 프로젝트 내에서 최소 내용만 구조체 정의를 복사한 것임.
 
-#ifndef MATHFUNCSDLL_EXPORTS
-
-#ifndef _LOG_TYPE_
-#define _LOG_TYPE_
-enum LogType {
-	enDebug=0,
-	enNormal,
-	enLineFeed,
-	enError,
-	enEnd,
-};
-#endif
 
 #define LENGTH_OF_TASK_ID			(19+1)		//과제ID 문자열 길이 (TBD)
 
-#define _MAX_PDW							(4096)
+#ifndef MAX_PDW
+#define MAX_PDW							(4096)
+#endif
 
 #ifndef _PDW_STRUCT
 #define _PDW_STRUCT
 typedef struct {
-	long long int llTOA;
+    unsigned long long int ullTOA;
 
-	int iFreq;
-	int iPulseType;
-	int iPA;
-	int iPW;
-	int iPFTag;
-	int iAOA;
+    int iFreq;
+    int iPulseType;
+    int iPA;
+    int iPW;
+    int iPFTag;
+    int iAOA;
 
-	float fPh1;
-	float fPh2;
-	float fPh3;
-	float fPh4;
+#if defined(_ELINT_) || defined(_XBAND_)
+    float fPh1;
+    float fPh2;
+    float fPh3;
+    float fPh4;
+
+#elif _POCKETSONATA_
+    int iPMOP;
+    int iFMOP;
+
+    int iChannel;
+#endif
 
 } _PDW;
 #endif
 
-#ifndef ENUM_BANDWIDTH_ENUM
-#define ENUM_BANDWIDTH_ENUM
+#ifndef _ENUM_BANDWIDTH_
+#define _ENUM_BANDWIDTH_
 typedef enum {
 	en5MHZ_BW=0,
 	en50MHZ_BW,
@@ -60,87 +59,220 @@ typedef enum {
 } ENUM_BANDWIDTH ;
 #endif
 
-#ifndef _STR_PDWDATA
-#define _STR_PDWDATA
+
+#ifndef _STR_ELINT_HEADER_
+#define _STR_ELINT_HEADER_
 typedef struct {
-	unsigned char	aucTaskID[LENGTH_OF_TASK_ID];
-	unsigned int iIsStorePDW;
-	int iCollectorID;
-	ENUM_BANDWIDTH enBandWidth;
+    unsigned char aucTaskID[LENGTH_OF_TASK_ID];
+    unsigned int iIsStorePDW;
+    int iCollectorID;
+    ENUM_BANDWIDTH enBandWidth;
 
-	UINT count;
-	_PDW stPDW[_MAX_PDW];
+    unsigned int uiCount;
 
-} STR_PDWDATA ;
+    int dummy;
+
+} STR_ELINT_HEADER ;
 #endif
 
-#define MAX_RADARNAME						(9+1)
-#define MAX_FREQ_PRI_STEP				(16)
+#ifndef _POCKETSONATA_HEADER_
+#define _POCKETSONATA_HEADER_
+typedef struct {
+    unsigned int iBoardID;
+    unsigned int iBank;
+    unsigned int iIsStorePDW;
+
+} POCKETSONATA_HEADER ;
+#endif
+
+#ifndef _SONATA_HEADER_
+#define _SONATA_HEADER_
+typedef struct {
+    unsigned int uiBand;
+    unsigned int iIsStorePDW;
+
+} SONATA_HEADER ;
+#endif
+
+#ifndef _STR_PDWDATA
+#define _STR_PDWDATA
+struct STR_PDWDATA {
+    union UNION_HEADER {
+        STR_ELINT_HEADER el;
+
+        POCKETSONATA_HEADER ps;
+
+        SONATA_HEADER so;
+    } x;
+
+    UINT uiTotalPDW;
+    int _dummy;
+
+    _PDW stPDW[MAX_PDW];
+
+}  ;
+#endif
+
+#define MAX_RADARNAME					(9+1)
+
+#ifndef MAX_FREQ_PRI_STEP
+#define MAX_FREQ_PRI_STEP				(32)
+#endif
+
+#ifndef _NULL_CHAR_
+#define _NULL_CHAR_						(1)
+#endif
+
+#ifndef _MAX_ELNOT_STRING_SIZE_
+#define _MAX_ELNOT_STRING_SIZE_			(8+_NULL_CHAR_)
+#endif
+
+#ifndef _MAX_SIZE_OF_MODECODE
+#define _MAX_SIZE_OF_MODECODE           (4)
+#endif
+
+#ifndef _MAX_MODECODE_STRING_SIZE_
+#define _MAX_MODECODE_STRING_SIZE_		(2+_NULL_CHAR_)
+#endif
+
+#ifndef _MAX_RADARMODE_NAME_SIZE
+#define _MAX_RADARMODE_NAME_SIZE		(12)
+#endif
+
+#ifndef _MAX_FUNCTIONCODE_STRING_SIZE_
+#define _MAX_FUNCTIONCODE_STRING_SIZE_	(4+_NULL_CHAR_)
+#endif
+
+#ifndef _MAX_NICKNAME_STRING_SIZE_
+#define _MAX_NICKNAME_STRING_SIZE_		(28+_NULL_CHAR_)
+#endif
+
 
 #ifndef SRxLOBData_STRUCT
 #define SRxLOBData_STRUCT
-typedef struct
-{
-	unsigned int uiLOBID;
-	unsigned int uiABTID;
-	unsigned int uiAETID;
+struct SRxLOBData {
+    unsigned int uiLOBID;
+    unsigned int uiABTID;
+    unsigned int uiAETID;
 
-	__time32_t tiContactTime;				// 32비트 time_t 로 선언해야 함. 
-	unsigned int tiContactTimems;
+    __time32_t tiContactTime;			// 32비트 time_t 로 선언해야 함.
+    unsigned int tiContactTimems;
 
-	int iSignalType;	
+    char szPrimaryELNOT[_MAX_ELNOT_STRING_SIZE_];
+    char szPrimaryModeCode[_MAX_SIZE_OF_MODECODE];								// 1번째 ELNOT
 
-	float	fMeanDOA;										// [0.1도]
-	float fMaxDOA;
-	float fMinDOA;
+    char szSecondaryELNOT[_MAX_ELNOT_STRING_SIZE_];
+    char szSecondaryModeCode[_MAX_SIZE_OF_MODECODE];							// 2번째 ELNOT
 
-	int iDIRatio;										// [1 %]
+    char szTertiaryELNOT[_MAX_ELNOT_STRING_SIZE_];												// 3번째 ELNOT
+    char szTertiaryModeCode[_MAX_SIZE_OF_MODECODE];
 
-	int iFreqType;
-	int	iFreqPatternType;			
-	float fFreqPatternPeriod;	  // [us]
-	float fMeanFreq;										// [10KHz]
-	float fMaxFreq;
-	float fMinFreq;
-	int	iFreqPositionCount;
-	float fFreqSeq[MAX_FREQ_PRI_STEP];	// 주파수 단값
+    char szModulationCode[_MAX_MODECODE_STRING_SIZE_];
+    char szRadarModeName[_MAX_RADARMODE_NAME_SIZE];
+    char szFuncCode[_MAX_FUNCTIONCODE_STRING_SIZE_];
+    char szNickName[_MAX_NICKNAME_STRING_SIZE_];
 
-	int	iPRIType;
-	int	iPRIPatternType;
-	float fPRIPatternPeriod;							// [us]
-	float fMeanPRI;											// [1ns]
-	float	fMaxPRI;
-	float	fMinPRI;
-	float	fPRIJitterRatio;							// [%]
-	int		iPRIPositionCount;
-	float	fPRISeq[MAX_FREQ_PRI_STEP];
-
-	float	fMeanPW;											// 1ns
-	float fMaxPW;
-	float fMinPW;
-
-	float fMeanPA;											// 기존대로
-	float fMaxPA;
-	float fMinPA;
-
-	int		iIsStorePDW;
-	int		iNumOfPDW;
-	int		iCollectorID;
-
-	double	dRadarCollectionLatitude;
-	double	dRadarCollectionLongitude;	
-
-	char aucRadarName[MAX_RADARNAME];
-	int iRadarModeIndex;
-	int iThreatIndex;
-
-	unsigned int uiSeqNum;
-	char	aucTaskID[LENGTH_OF_TASK_ID];
-
-}  SRxLOBData;
+#ifndef _XBAND_
+    int iPolarization;                              // 극성
 #endif
 
+    int iRatioOfPOL;                                // 극성 신뢰도
+
+    int iSignalType;
+
+    float fDOAMean;                                 // [0.1도]
+    float fDOAMax;
+    float fDOAMin;
+    float fDOADeviation;							// [0.1도]
+    float fDOASDeviation;
+
+    int iDIRatio;					// [1 %]
+
+    int iFreqType;
+    int iFreqPatternType;
+    float fFreqPatternPeriod;                       // [us]
+    float fFreqMean;				// [10KHz]
+    float fFreqMax;
+    float fFreqMin;
+    float fFreqDeviation;                           //
+    int iFreqPositionCount;
+    int iFreqElementCount;
+    float fFreqSeq[MAX_FREQ_PRI_STEP];	// 주파수 단값
+
+    int iPRIType;
+    int iPRIPatternType;
+    float fPRIPatternPeriod;		// [us]
+    float fPRIMean;				// [1ns]
+    float fPRIMax;
+    float fPRIMin;
+    float fPRIDeviation;			// [1ns]
+    float fPRIJitterRatio;			// [%]
+    int iPRIPositionCount;
+    int iPRIElementCount;
+    float fPRISeq[MAX_FREQ_PRI_STEP];
+
+    float fPWMean;				// 1ns
+    float fPWMax;
+    float fPWMin;
+    float fPWDeviation;
+
+    float fPAMean;				// 기존대로
+    float fPAMax;
+    float fPAMin;
+    float fPADeviation;			// 기존대로
+
+#ifndef _XBAND_
+    int iScanType;
+    //int iDetailScanType;
+    float fScanPeriod;			// [msec]
+
+    int iMOPType;				// 인트라 타입
+    int iDetailMOPType;			// 인트라 세부 타입. 항공에서 줄 수 있는것인지(?)
+    float fMOPMaxFreq;			// ??
+    float fMOPMinFreq;
+    float fMOPMeanFreq;
+    float fMOPFreqDeviation;
+
+
+    float fShipLatitude;
+    float fShipLongitude;
+    float fPitchAngle;
+    float fRollAngle;
+    float fHeadingAngle;
+    float fAltitude;
+    int iValidity;
 #endif
+
+    int iIsStoreData;
+    int iNumOfPDW;
+    int iNumOfIQ;
+
+    char aucRadarName[MAX_RADARNAME];
+    int iRadarModeIndex;
+    //int iThreatIndex;
+
+
+#ifdef _POCKETSONATA_
+	float fRadarLatitude;
+	float fRadarLongitude;		
+
+#elif defined(_ELINT_) || defined(_XBAND_)
+	float fRadarLatitude;
+	float fRadarLongitude;		
+
+    int	iCollectorID;
+
+    unsigned int uiSeqNum;
+    char aucTaskID[LENGTH_OF_TASK_ID];
+
+#else
+
+#endif
+
+}  ;
+#endif
+
+
 
 //////////////////////////////////////////////////////////////////////////
 // 컴파일 방법
@@ -210,11 +342,16 @@ namespace RadarDirAlgotirhm
 		static MATHFUNCSDLL_API void Close();
 
 		static MATHFUNCSDLL_API void Start( STR_PDWDATA *pPDWData );
+        static MATHFUNCSDLL_API void LoadCEDLibrary();
 
 		static MATHFUNCSDLL_API int GetCoLOB();
 		static MATHFUNCSDLL_API SRxLOBData *GetLOBData();
 
-		static MATHFUNCSDLL_API void Log( int nType, const char *fmt, ... );
+#pragma data_seg( ".ioshare" )
+        // static CLog *g_pTheLog;
+#pragma data_seg()
+
+		//static MATHFUNCSDLL_API void Log( int nType, const char *fmt, ... );
 	};
 
 }
