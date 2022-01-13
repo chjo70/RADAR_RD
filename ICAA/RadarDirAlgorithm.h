@@ -147,6 +147,10 @@ struct STR_PDWDATA {
 #define _MAX_NICKNAME_STRING_SIZE_		(27+_NULL_CHAR_)
 #endif
 
+#ifndef _MAX_RADARNAME_SIZE
+#define _MAX_RADARNAME_SIZE											(8)
+#endif
+
 
 #ifndef SRxLOBData_STRUCT
 #define SRxLOBData_STRUCT
@@ -247,7 +251,7 @@ struct SRxLOBData {
     int iNumOfPDW;
     int iNumOfIQ;
 
-    char aucRadarName[MAX_RADARNAME];
+    char aucRadarName[_MAX_RADARNAME_SIZE];
     int iRadarModeIndex;
     //int iThreatIndex;
 

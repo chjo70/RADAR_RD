@@ -323,65 +323,6 @@ struct STxAcqTraskRequest{   //수집 과제 요구
 
 
 
-typedef struct
-{ 
-	char aucTaskID[LENGTH_OF_TASK_ID];
-	unsigned int uiLOBID;
-	unsigned int uiABTID;
-	unsigned int uiAETID;
-
-	int			 tiContactTime;				// 32비트 time_t 로 선언해야 함. 
-	unsigned int tiContactTimems;
-
-	int iSignalType;	
-
-	float	fMeanDOA;										// [0.1도]
-	float fMaxDOA;
-	float fMinDOA;
-
-	int iDIRatio;										// [1 %]
-
-	int		iFreqType;
-	int		iFreqPatternType;			
-	float fFreqPatternPeriod;	  // [us]
-	float fMeanFreq;										// [10KHz]
-	float fMaxFreq;
-	float fMinFreq;
-	int		iFreqPositionCount;
-	float fFreqSeq[MAX_FREQ_PRI_STEP];	// 주파수 단값
-
-	int		iPRIType;
-	int		iPRIPatternType;
-	int		iPRIPatternPeriod;							// [us]
-	float	fMeanPRI;											// [1ns]
-	float	fMaxPRI;
-	float	fMinPRI;
-	float	fPRIJitterRatio;							// [%]
-	int		iPRIPositionCount;
-	int 	iPRISeq[MAX_FREQ_PRI_STEP];
-
-	float	fMeanPW;											// 1ns
-	float fMaxPW;
-	float fMinPW;
-
-	float fMeanPA;											// 기존대로
-	float fMaxPA;
-	float fMinPA;
-
-	int		iIsStorePDW;
-	int		iNumOfPDW;
-	int		iCollectorID;
-
-	double	dRadarCollectionLatitude;
-	double	dRadarCollectionLongitude;	
-
-	char aucRadarName[MAX_RADARNAME];
-	int iRadarModeIndex;
-	int iThreatIndex;
-
-}  SRxDFLOBData;
-
-
 struct STxReqRadarSysVal{				//레이더방탐 시스템변수 설정요구
 	unsigned int	uiMinPDWForLOB;
 	unsigned int	uiAlarmMinCollecting;
