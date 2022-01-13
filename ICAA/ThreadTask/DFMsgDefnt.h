@@ -106,14 +106,11 @@ static void AllEndian64(void *i_pData, UINT i_nSize)
 //#define CMDCODE_TASK_REC_RESLT_TO_OPER			(0x21) 
 
 #define RX_MAX_TASK					(100)
-#define LENGTH_OF_TASK_ID			(19+1)		//과제ID 문자열 길이 (TBD)
 
 #define RX_MAX_PDW					(4096)
-#define MAX_RADARNAME						(7+1)
-#define MAX_FREQ_PRI_STEP				(32)
+
+
 #define LENGTH_OF_TASK_ID			(19+1)		//과제ID 문자열 길이 (TBD)
-//#define MAX_PRI_PER_GROUP				(32)
-//#define MAX_PADIFF_PER_GROUP		(32)
 
 enum ACQ_START_REQ
 {

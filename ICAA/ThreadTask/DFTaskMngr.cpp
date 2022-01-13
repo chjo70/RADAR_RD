@@ -844,11 +844,11 @@ void CDFTaskMngr::ProcessMsg(STMsg& i_stMsg)
 					freqLOB = m_stCurTaskData.uiFreq + (short)pPDW->iFreq;
 				}
 				
-				fph[0] = (pPDW->iph[0] * PH_DIFF);
-				fph[1] = (pPDW->iph[1] * PH_DIFF);
-				fph[2] = (pPDW->iph[2] * PH_DIFF);
-				fph[3] = (pPDW->iph[3] * PH_DIFF);
-				fph[4] = (pPDW->iph[4] * PH_DIFF);				
+				fph[0] = (float) (pPDW->iph[0] * PH_DIFF);
+				fph[1] = (float) (pPDW->iph[1] * PH_DIFF);
+				fph[2] = (float) (pPDW->iph[2] * PH_DIFF);
+				fph[3] = (float) (pPDW->iph[3] * PH_DIFF);
+				fph[4] = (float) (pPDW->iph[4] * PH_DIFF);
 
 				TRACE("Freq_r %d, llTOA %I64d, Freq %d, iPA %d, iPulseType %d, iPW %d, iPFTag %d, iph_1 %d, iph_2 %d, iph_3 %d, iph_4 %d, iph_5 %d  \n",
 					Freq, pPDW->llTOA, pPDW->iFreq, pPDW->iPA, pPDW->iPulseType, pPDW->iPW, pPDW->iPFTag, pPDW->iph[0], pPDW->iph[1], pPDW->iph[2],
@@ -1077,7 +1077,7 @@ void CDFTaskMngr::StopReqTaskRetryTimer()
 	if ( m_hRqTaskRetryTimerQueue == NULL )
 		return;
 
-	bool bRtn = DeleteTimerQueueTimer(m_hRqTaskRetryTimerQueue, m_hRqTaskRetryTimer, NULL);
+	BOOL bRtn = DeleteTimerQueueTimer(m_hRqTaskRetryTimerQueue, m_hRqTaskRetryTimer, NULL);
 
 	if(bRtn)
 	{
@@ -1108,7 +1108,7 @@ void CDFTaskMngr::StopRetryCollectStatusTimer()
 	if ( m_hRetryColectTimerQueue == NULL )
 		return;
 
-	bool bRtn = DeleteTimerQueueTimer(m_hRetryColectTimerQueue, m_hRetryColectStatTimer, NULL);
+	BOOL bRtn = DeleteTimerQueueTimer(m_hRetryColectTimerQueue, m_hRetryColectStatTimer, NULL);
 
 	if(bRtn)
 	{
@@ -1139,7 +1139,7 @@ void CDFTaskMngr::StopPDWConnStatusTimer()
 	if ( m_hPDWConTimerQueue == NULL )
 		return;
 
-	bool bRtn = DeleteTimerQueueTimer(m_hPDWConTimerQueue, m_hPDWConStatTimer, NULL);
+	BOOL bRtn = DeleteTimerQueueTimer(m_hPDWConTimerQueue, m_hPDWConStatTimer, NULL);
 
 	if(bRtn)
 	{
@@ -1742,27 +1742,27 @@ int CDFTaskMngr::GetAOADataFromAlgrism(UINT iFreq, int i_idxFreq, float * fchMea
 		while( in.good() == true )	//#FA_C_PotentialUnboundedLoop_T1
 		{		
 			in.getline(buf, CSV_BUF, ',');
-			nTemp = _ttof(buf);
+			nTemp = (float) _ttof(buf);
 			nchCorrectData.iFreq = nTemp;			
 
 			in.getline(buf, CSV_BUF, ',');
-			nTemp = _ttof(buf);
+			nTemp = (float) _ttof(buf);
 			nchCorrectData.fph[0] = nTemp;
 
 			in.getline(buf, CSV_BUF, ',');
-			nTemp = _ttof(buf);
+			nTemp = (float) _ttof(buf);
 			nchCorrectData.fph[1] = nTemp;
 
 			in.getline(buf, CSV_BUF, ',');
-			nTemp = _ttof(buf);
+			nTemp = (float) _ttof(buf);
 			nchCorrectData.fph[2] = nTemp;
 
 			in.getline(buf, CSV_BUF, ',');
-			nTemp = _ttof(buf);
+			nTemp = (float) _ttof(buf);
 			nchCorrectData.fph[3] = nTemp;
 
 			in.getline(buf, CSV_BUF, '\n');
-			nTemp = _ttof(buf);
+			nTemp = (float) _ttof(buf);
 			nchCorrectData.fph[4] = nTemp;	
 
 			if(nchCorrectData.iFreq == iFreq)
