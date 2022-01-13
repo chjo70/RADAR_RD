@@ -717,12 +717,12 @@ bool CADSBReceivedProcessMngr::ParseAP(STADSBRawPacket* i_stADSBRawPacket, STADS
 	// CPR Latitude Odd or Even
 	ConvertBinaryToInt(acOutputBinary+54, 17, &iRstOfInt);
 
-	fCPR_LAT = iRstOfInt/131072.0;
+	fCPR_LAT = (float) iRstOfInt/ (float) 131072.0;
 
 	// CPR Longitude Odd or Even
 	ConvertBinaryToInt(acOutputBinary+71, 17, &iRstOfInt);
 
-	fCPR_LON = iRstOfInt/131072.0;
+	fCPR_LON = (float) iRstOfInt/ (float) 131072.0;
 
 	if(iIsEven == 0)
 	{
@@ -854,7 +854,7 @@ bool CADSBReceivedProcessMngr::ParseAV(STADSBRawPacket* i_stADSBRawPacket, STADS
 			i_stADSBDecodedData->fVel = fVel;
 
 			// Calculate heading
-			fHeading = atan2((double)iV_we, (double)iV_sn) * 360.0 / (2 * PI);
+			fHeading = (float) ( atan2((double)iV_we, (double)iV_sn) * 360.0 / (2 * PI) );
 
 			if(fHeading < 0)
 			{
@@ -876,7 +876,7 @@ bool CADSBReceivedProcessMngr::ParseAV(STADSBRawPacket* i_stADSBRawPacket, STADS
 
 				int iDeciHdg = iRstOfInt;
 
-				float	fHeading = iDeciHdg/1024.0 * 360;
+				float fHeading = (float) ( iDeciHdg/1024.0 * 360 );
 
 				i_stADSBDecodedData->fHeading = fHeading;
 			}
@@ -887,7 +887,7 @@ bool CADSBReceivedProcessMngr::ParseAV(STADSBRawPacket* i_stADSBRawPacket, STADS
 			int iAirSpeed_knot = iRstOfInt;
 
 			i_stADSBDecodedData->bIsGroundSpeed = false;
-			i_stADSBDecodedData->fVel = iAirSpeed_knot;
+			i_stADSBDecodedData->fVel = (float) iAirSpeed_knot;
 		}
 		break;
 
@@ -978,7 +978,7 @@ bool CADSBReceivedProcessMngr::CalcLat_Lon(bool i_bIsEvenRecently, STADSBDecoded
 			}
 
 			// Calculate dLon
-			fDLon = 360.0/(float)(uiNi);
+			fDLon = (float) 360.0/(float)(uiNi);
 
 			// Calculate m
 			iM = floor(i_fCPR_LON_EVEN*(NL_lat(fLat_Even)-1.0) - i_fCPR_LON_ODD*NL_lat(fLat_Even) + 0.5);
@@ -1000,10 +1000,10 @@ bool CADSBReceivedProcessMngr::CalcLat_Lon(bool i_bIsEvenRecently, STADSBDecoded
 			}
 
 			// Calculate dLon
-			fDLon = 360.0/(float)(uiNi);
+			fDLon = (float) 360.0/(float)(uiNi);
 
 			// Calculate m
-			iM = floor(i_fCPR_LON_EVEN*(NL_lat(fLat_Odd)-1) - i_fCPR_LON_ODD*NL_lat(fLat_Odd) + 0.5);
+			iM = (float) ( floor(i_fCPR_LON_EVEN*(NL_lat(fLat_Odd)-1) - i_fCPR_LON_ODD*NL_lat(fLat_Odd) + 0.5) );
 
 			// Calculate Lon
 			fLon = fDLon*(iM%uiNi + i_fCPR_LON_ODD);

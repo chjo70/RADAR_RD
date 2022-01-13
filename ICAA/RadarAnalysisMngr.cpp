@@ -1628,7 +1628,7 @@ void CRadarAnalysisMngr::StopTaskTimer()
 	if ( m_hRqTaskTimerQueue == NULL )
 		return;
 
-	bool bRtn = DeleteTimerQueueTimer(m_hRqTaskTimerQueue, m_hRqTaskTimer, NULL);
+	BOOL bRtn = DeleteTimerQueueTimer(m_hRqTaskTimerQueue, m_hRqTaskTimer, NULL);
 
 	if(bRtn)
 	{

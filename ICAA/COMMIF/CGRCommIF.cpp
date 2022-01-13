@@ -34,7 +34,7 @@ CGRCommIF::CGRCommIF() :
 */
 CGRCommIF::~CGRCommIF()
 {
-	bool bRtn = DeleteTimerQueueTimer(m_hTimerQueue, m_hTimer, NULL);
+	BOOL bRtn = DeleteTimerQueueTimer(m_hTimerQueue, m_hTimer, NULL);
 
 	if(bRtn)
 	{
@@ -342,9 +342,8 @@ bool CGRCommIF::SendUDPData(int i_iSize, const void *i_pvData)
 	return true;
 }
 
-bool CGRCommIF::ConnectADSBS(int i_iPort, const char *i_pacIP)
+int CGRCommIF::ConnectADSBS(int i_iPort, const char *i_pacIP)
 {
-	int iRet;
 	int	sizeOfLanBuf;
 	struct linger	LINGER;
 
@@ -387,9 +386,9 @@ bool CGRCommIF::ConnectADSBS(int i_iPort, const char *i_pacIP)
 }
 
 // - [이형호 송신]
-bool CGRCommIF::SendNEXSANData(int i_iSize, const void *i_pvData)
+int CGRCommIF::SendNEXSANData(int i_iSize, const void *i_pvData)
 {	
-	int iRet = NULL;
+	int iRet = 0;
 	if ( m_hClientSocket )
 		iRet = send(m_hClientSocket, (const char *)i_pvData, i_iSize, 0);
 

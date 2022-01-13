@@ -1743,7 +1743,7 @@ int CDFTaskMngr::GetAOADataFromAlgrism(UINT iFreq, int i_idxFreq, float * fchMea
 		{		
 			in.getline(buf, CSV_BUF, ',');
 			nTemp = (float) _ttof(buf);
-			nchCorrectData.iFreq = nTemp;			
+			nchCorrectData.iFreq = (int) nTemp;			
 
 			in.getline(buf, CSV_BUF, ',');
 			nTemp = (float) _ttof(buf);
