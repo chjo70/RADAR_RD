@@ -2887,7 +2887,7 @@ void CGRCommObj::RecvPacketFromDataLink1Frame(BYTE* i_pucData, int i_iSize)
 // 항공에 ACK 전송
 int CGRCommObj::SendAckToDataLink(int i_iFrameType, BYTE* i_pucData)
 {
-	int iRet=0;
+	int iRet;
 
 	if ( i_iFrameType == FLAG_FRAME_YES )
 	{

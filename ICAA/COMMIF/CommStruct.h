@@ -77,7 +77,7 @@
 #define Equip_Rev_GD							(0x09)	//GPS방탐기
 #define Equip_Rev_SF							(0x0A)	//음영지역검출기
 
-#define SYSTEM_CLR_EQUIP1	14
+#define SYSTEM_CLR_EQUIP1	54
 #define SYSTEM_CLR_EQUIP2	24
 #define SYSTEM_CLR_EQUIP3	34
 

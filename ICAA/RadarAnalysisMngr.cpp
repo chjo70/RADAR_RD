@@ -286,7 +286,7 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 		{
 			TRACE("[수신]레이더분석-레이더방탐 초기화 요구\n");
 
-			for(int i = 0; i< RCV_DP_NUM; i++)
+			for(int i = 0; i< 1; i++)
 			{
 				bRtnSend = m_hCommIF.Send(OPCODE_BD_TF_REQINIT, i_stMsg.usMSize, i, i_stMsg.ucRevOperID, i_stMsg.ucOperatorID, i_stMsg.buf);	
 
@@ -300,15 +300,15 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 				}
 			}
 
-			if(m_hEQCHKTimerQueue[EQ_INT] == NULL)
-			{	//DTEC_NullPointCheck
-				m_hEQCHKTimerQueue[EQ_INT] = CreateTimerQueue();
-				CreateTimerQueueTimer(&m_hEQCHKTimer[EQ_INT], m_hEQCHKTimerQueue[EQ_INT], (WAITORTIMERCALLBACK)FUNCEQUIPCHECKTIMER[EQ_INT], this, 1000, 1000, WT_EXECUTEDEFAULT);				
-			}
-			else
-			{
-				TRACE("EQUIP INIT STATUS CHECK 타이머가 이미 생성되어 있습니다.");
-			}
+			//if(m_hEQCHKTimerQueue[EQ_INT] == NULL)
+			//{	//DTEC_NullPointCheck
+			//	m_hEQCHKTimerQueue[EQ_INT] = CreateTimerQueue();
+			//	CreateTimerQueueTimer(&m_hEQCHKTimer[EQ_INT], m_hEQCHKTimerQueue[EQ_INT], (WAITORTIMERCALLBACK)FUNCEQUIPCHECKTIMER[EQ_INT], this, 1000, 1000, WT_EXECUTEDEFAULT);				
+			//}
+			//else
+			//{
+			//	TRACE("EQUIP INIT STATUS CHECK 타이머가 이미 생성되어 있습니다.");
+			//}
 		}
 		break;
 
@@ -341,15 +341,15 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 				}
 			}*/
 
-			if(m_hEQCHKTimerQueue[EQ_SW] == NULL)
-			{	//DTEC_NullPointCheck
-				m_hEQCHKTimerQueue[EQ_SW] = CreateTimerQueue();
-				CreateTimerQueueTimer(&m_hEQCHKTimer[EQ_SW], m_hEQCHKTimerQueue[EQ_SW], (WAITORTIMERCALLBACK)FUNCEQUIPCHECKTIMER[EQ_SW], this, 1000, 1000, WT_EXECUTEDEFAULT);				
-			}
-			else
-			{
-				TRACE("EQUIP SW VERSION CHECK 타이머가 이미 생성되어 있습니다.");
-			}
+			//if(m_hEQCHKTimerQueue[EQ_SW] == NULL)
+			//{	//DTEC_NullPointCheck
+			//	m_hEQCHKTimerQueue[EQ_SW] = CreateTimerQueue();
+			//	CreateTimerQueueTimer(&m_hEQCHKTimer[EQ_SW], m_hEQCHKTimerQueue[EQ_SW], (WAITORTIMERCALLBACK)FUNCEQUIPCHECKTIMER[EQ_SW], this, 1000, 1000, WT_EXECUTEDEFAULT);				
+			//}
+			//else
+			//{
+			//	TRACE("EQUIP SW VERSION CHECK 타이머가 이미 생성되어 있습니다.");
+			//}
 		}
 		break;
 
@@ -382,15 +382,15 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 			}
 			}*/
 
-			if(m_hEQCHKTimerQueue[EQ_PBT] == NULL)
-			{	//DTEC_NullPointCheck
-				m_hEQCHKTimerQueue[EQ_PBT] = CreateTimerQueue();
-				CreateTimerQueueTimer(&m_hEQCHKTimer[EQ_PBT], m_hEQCHKTimerQueue[EQ_PBT], (WAITORTIMERCALLBACK)FUNCEQUIPCHECKTIMER[EQ_PBT], this, 1000, 1000, WT_EXECUTEDEFAULT);				
-			}
-			else
-			{
-				TRACE("EQUIP PBIT CHECK 타이머가 이미 생성되어 있습니다.");
-			}
+			//if(m_hEQCHKTimerQueue[EQ_PBT] == NULL)
+			//{	//DTEC_NullPointCheck
+			//	m_hEQCHKTimerQueue[EQ_PBT] = CreateTimerQueue();
+			//	CreateTimerQueueTimer(&m_hEQCHKTimer[EQ_PBT], m_hEQCHKTimerQueue[EQ_PBT], (WAITORTIMERCALLBACK)FUNCEQUIPCHECKTIMER[EQ_PBT], this, 1000, 1000, WT_EXECUTEDEFAULT);				
+			//}
+			//else
+			//{
+			//	TRACE("EQUIP PBIT CHECK 타이머가 이미 생성되어 있습니다.");
+			//}
 		}
 		break;
 
@@ -423,15 +423,15 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 			}
 			}*/
 
-			if(m_hEQCHKTimerQueue[EQ_IBT] == NULL)
-			{	//DTEC_NullPointCheck
-				m_hEQCHKTimerQueue[EQ_IBT] = CreateTimerQueue();
-				CreateTimerQueueTimer(&m_hEQCHKTimer[EQ_IBT], m_hEQCHKTimerQueue[EQ_IBT], (WAITORTIMERCALLBACK)FUNCEQUIPCHECKTIMER[EQ_IBT], this, 1000, 1000, WT_EXECUTEDEFAULT);				
-			}
-			else
-			{
-				TRACE("EQUIP 1BIT CHECK 타이머가 이미 생성되어 있습니다.");
-			}
+			//if(m_hEQCHKTimerQueue[EQ_IBT] == NULL)
+			//{	//DTEC_NullPointCheck
+			//	m_hEQCHKTimerQueue[EQ_IBT] = CreateTimerQueue();
+			//	CreateTimerQueueTimer(&m_hEQCHKTimer[EQ_IBT], m_hEQCHKTimerQueue[EQ_IBT], (WAITORTIMERCALLBACK)FUNCEQUIPCHECKTIMER[EQ_IBT], this, 1000, 1000, WT_EXECUTEDEFAULT);				
+			//}
+			//else
+			//{
+			//	TRACE("EQUIP 1BIT CHECK 타이머가 이미 생성되어 있습니다.");
+			//}
 		}
 		break;
 	
@@ -517,27 +517,27 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 				TRACE("[송신 실패]레이더분석-레이더방탐#1 수집시작 요구\n");
 			}
 
-			bRtnSend = m_hCommIF.Send(OPCODE_BD_TF_REQSTARTACQ, i_stMsg.usMSize, SEND_DP_2, i_stMsg.ucRevOperID, i_stMsg.ucOperatorID, i_stMsg.buf);	
+			/*bRtnSend = m_hCommIF.Send(OPCODE_BD_TF_REQSTARTACQ, i_stMsg.usMSize, SEND_DP_2, i_stMsg.ucRevOperID, i_stMsg.ucOperatorID, i_stMsg.buf);	
 
 			if(bRtnSend == true)
 			{
-				TRACE("[송신]레이더분석-레이더방탐#2 수집시작 요구\n");
+			TRACE("[송신]레이더분석-레이더방탐#2 수집시작 요구\n");
 			}
 			else
 			{
-				TRACE("[송신 실패]레이더분석-레이더방탐#2 수집시작 요구\n");
+			TRACE("[송신 실패]레이더분석-레이더방탐#2 수집시작 요구\n");
 			}
 
 			bRtnSend = m_hCommIF.Send(OPCODE_BD_TF_REQSTARTACQ, i_stMsg.usMSize, SEND_DP_3, i_stMsg.ucRevOperID, i_stMsg.ucOperatorID, i_stMsg.buf);	
 
 			if(bRtnSend == true)
 			{
-				TRACE("[송신]레이더분석-레이더방탐#3 수집시작 요구\n");
+			TRACE("[송신]레이더분석-레이더방탐#3 수집시작 요구\n");
 			}
 			else
 			{
-				TRACE("[송신 실패]레이더분석-레이더방탐#3 수집시작 요구\n");
-			}
+			TRACE("[송신 실패]레이더분석-레이더방탐#3 수집시작 요구\n");
+			}*/
 		}
 		break;
 
@@ -590,27 +590,27 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 				TRACE("[송신 실패]레이더분석-레이더방탐#1 시스템변수 설정 요구\n");
 			}
 
-			bRtnSend = m_hCommIF.Send(OPCODE_BD_TF_REQSYSTEMSET, i_stMsg.usMSize, SEND_DP_2, i_stMsg.ucRevOperID, i_stMsg.ucOperatorID, i_stMsg.buf);	// 레이더분석-레이더방탐 시스템변수 설정 요구_수신국#2
+			//bRtnSend = m_hCommIF.Send(OPCODE_BD_TF_REQSYSTEMSET, i_stMsg.usMSize, SEND_DP_2, i_stMsg.ucRevOperID, i_stMsg.ucOperatorID, i_stMsg.buf);	// 레이더분석-레이더방탐 시스템변수 설정 요구_수신국#2
 
-			if(bRtnSend == true)
-			{
-				TRACE("[송신]레이더분석-레이더방탐#2 시스템변수 설정 요구\n");
-			}
-			else
-			{
-				TRACE("[송신 실패]레이더분석-레이더방탐#2 시스템변수 설정 요구\n");
-			}
+			//if(bRtnSend == true)
+			//{
+			//	TRACE("[송신]레이더분석-레이더방탐#2 시스템변수 설정 요구\n");
+			//}
+			//else
+			//{
+			//	TRACE("[송신 실패]레이더분석-레이더방탐#2 시스템변수 설정 요구\n");
+			//}
 
-			bRtnSend = m_hCommIF.Send(OPCODE_BD_TF_REQSYSTEMSET, i_stMsg.usMSize, SEND_DP_3, i_stMsg.ucRevOperID, i_stMsg.ucOperatorID, i_stMsg.buf);	// 레이더분석-레이더방탐 시스템변수 설정 요구_수신국#3
+			//bRtnSend = m_hCommIF.Send(OPCODE_BD_TF_REQSYSTEMSET, i_stMsg.usMSize, SEND_DP_3, i_stMsg.ucRevOperID, i_stMsg.ucOperatorID, i_stMsg.buf);	// 레이더분석-레이더방탐 시스템변수 설정 요구_수신국#3
 
-			if(bRtnSend == true)
-			{
-				TRACE("[송신]레이더분석-레이더방탐#3 시스템변수 설정 요구\n");
-			}
-			else
-			{
-				TRACE("[송신 실패]레이더분석-레이더방탐#3 시스템변수 설정 요구\n");
-			}
+			//if(bRtnSend == true)
+			//{
+			//	TRACE("[송신]레이더분석-레이더방탐#3 시스템변수 설정 요구\n");
+			//}
+			//else
+			//{
+			//	TRACE("[송신 실패]레이더분석-레이더방탐#3 시스템변수 설정 요구\n");
+			//}
 		}
 		break;
 
@@ -665,30 +665,30 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 
 			//if(m_stCurTaskData.uiRvcUseStat2 == TK_USE)
 			//{
-				bRtnSend = m_hCommIF.Send(OPCODE_BD_TF_REQACQTASK, sizeof(STxAcqTraskRequest), SEND_DP_2, i_stMsg.ucRevOperID, i_stMsg.ucOperatorID, stMsg.buf);	// 수신국#2
+				//bRtnSend = m_hCommIF.Send(OPCODE_BD_TF_REQACQTASK, sizeof(STxAcqTraskRequest), SEND_DP_2, i_stMsg.ucRevOperID, i_stMsg.ucOperatorID, stMsg.buf);	// 수신국#2
 
-				if(bRtnSend == true)
-				{
-					TRACE("[송신]레이더분석-레이더방탐#2 수집 과제 요구\n");
-				}
-				else
-				{
-					TRACE("[송신 실패]레이더분석-레이더방탐#2 수집 과제 요구\n");
-				}
+				//if(bRtnSend == true)
+				//{
+				//	TRACE("[송신]레이더분석-레이더방탐#2 수집 과제 요구\n");
+				//}
+				//else
+				//{
+				//	TRACE("[송신 실패]레이더분석-레이더방탐#2 수집 과제 요구\n");
+				//}
 			//}
 
 			//if(m_stCurTaskData.uiRvcUseStat3 == TK_USE)
 			//{
-				bRtnSend = m_hCommIF.Send(OPCODE_BD_TF_REQACQTASK, sizeof(STxAcqTraskRequest), SEND_DP_3, i_stMsg.ucRevOperID, i_stMsg.ucOperatorID, stMsg.buf);	// 수신국#3
+				//bRtnSend = m_hCommIF.Send(OPCODE_BD_TF_REQACQTASK, sizeof(STxAcqTraskRequest), SEND_DP_3, i_stMsg.ucRevOperID, i_stMsg.ucOperatorID, stMsg.buf);	// 수신국#3
 
-				if(bRtnSend == true)
-				{
-					TRACE("[송신]레이더분석-레이더방탐#3 수집 과제 요구\n");
-				}
-				else
-				{
-					TRACE("[송신 실패]레이더분석-레이더방탐#3 수집 과제 요구\n");
-				}
+				//if(bRtnSend == true)
+				//{
+				//	TRACE("[송신]레이더분석-레이더방탐#3 수집 과제 요구\n");
+				//}
+				//else
+				//{
+				//	TRACE("[송신 실패]레이더분석-레이더방탐#3 수집 과제 요구\n");
+				//}
 			//}
 			//timer 
 			ClearAsqDoneFlag();
@@ -770,7 +770,7 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 				m_bAsqIQFlag = false;
 			}
 
-			for(int i = 0; i< RCV_DP_NUM; i++)
+			for(int i = 0; i< 1; i++)
 			{
 				bRtnSend = m_hCommIF.Send(OPCODE_BD_TF_REQIQDATA, i_stMsg.usMSize, i, i_stMsg.ucRevOperID, i_stMsg.ucOperatorID, i_stMsg.buf);	
 
@@ -817,22 +817,22 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 				TRACE("**************수신국#1에 초기화 결과 수신===================\n");
 				m_bEquipInit[SEND_DP_1] = true;
 			}
-			if(i_stMsg.ucOperatorID == SYSTEM_CLR_EQUIP2) //수신국#2
-			{
-				memcpy(&m_stInitReqRslt_2, i_stMsg.buf, i_stMsg.usMSize);
-				//m_bRevAsqDataFromDP[SEND_DP_2] = true;
-				TRACE("**************수신국#2에 초기화 결과 수신===================\n");
-				m_bEquipInit[SEND_DP_2] = true;
-			}
-			if(i_stMsg.ucOperatorID == SYSTEM_CLR_EQUIP3) //수신국#3
-			{
-				memcpy(&m_stInitReqRslt_3, i_stMsg.buf, i_stMsg.usMSize);
-				//m_bRevAsqDataFromDP[SEND_DP_3] = true;
-				TRACE("**************수신국#3에 초기화 결과 수신===================\n");
-				m_bEquipInit[SEND_DP_3] = true;
-			}
+			//if(i_stMsg.ucOperatorID == SYSTEM_CLR_EQUIP2) //수신국#2
+			//{
+			//	memcpy(&m_stInitReqRslt_2, i_stMsg.buf, i_stMsg.usMSize);
+			//	//m_bRevAsqDataFromDP[SEND_DP_2] = true;
+			//	TRACE("**************수신국#2에 초기화 결과 수신===================\n");
+			//	m_bEquipInit[SEND_DP_2] = true;
+			//}
+			//if(i_stMsg.ucOperatorID == SYSTEM_CLR_EQUIP3) //수신국#3
+			//{
+			//	memcpy(&m_stInitReqRslt_3, i_stMsg.buf, i_stMsg.usMSize);
+			//	//m_bRevAsqDataFromDP[SEND_DP_3] = true;
+			//	TRACE("**************수신국#3에 초기화 결과 수신===================\n");
+			//	m_bEquipInit[SEND_DP_3] = true;
+			//}
 
-			if(m_bEquipInit[SEND_DP_1] && m_bEquipInit[SEND_DP_2] && m_bEquipInit[SEND_DP_3])
+			if(m_bEquipInit[SEND_DP_1] /*&& m_bEquipInit[SEND_DP_2] && m_bEquipInit[SEND_DP_3]*/)
 			{
 				TRACE("**************수신국#1 ~ #3에 초기화 결과 수신===================\n");	
 				m_iEQChkInitAckCnt = 0;
@@ -851,27 +851,27 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 					TRACE("[송신 실패]레이더분석-운용 초기화#1 결과\n");
 				}
 
-				bRtnSend = m_hCommIF.Send(OPCODE_BD_OV_RSTINIT, sizeof(m_stInitReqRslt_2), SEND_DP_2, Equip_Rev_0V, m_OVIP, &m_stInitReqRslt_2);	
+				/*bRtnSend = m_hCommIF.Send(OPCODE_BD_OV_RSTINIT, sizeof(m_stInitReqRslt_2), SEND_DP_2, Equip_Rev_0V, m_OVIP, &m_stInitReqRslt_2);	
 
 				if(bRtnSend == true)
 				{
-					TRACE("[송신]레이더분석-운용 초기화#2 결과\n");
+				TRACE("[송신]레이더분석-운용 초기화#2 결과\n");
 				}
 				else
 				{
-					TRACE("[송신 실패]레이더분석-운용 초기화#2 결과\n");
+				TRACE("[송신 실패]레이더분석-운용 초기화#2 결과\n");
 				}
 
 				bRtnSend = m_hCommIF.Send(OPCODE_BD_OV_RSTINIT, sizeof(m_stInitReqRslt_3), SEND_DP_3, Equip_Rev_0V, m_OVIP, &m_stInitReqRslt_3);	
 
 				if(bRtnSend == true)
 				{
-					TRACE("[송신]레이더분석-운용 초기화#3 결과\n");
+				TRACE("[송신]레이더분석-운용 초기화#3 결과\n");
 				}
 				else
 				{
-					TRACE("[송신 실패]레이더분석-운용 초기화#3 결과\n");
-				}
+				TRACE("[송신 실패]레이더분석-운용 초기화#3 결과\n");
+				}*/
 			}	
 
 			//bRtnSend = m_hCommIF.Send(OPCODE_BD_OV_RSTINIT, i_stMsg.usMSize, i_stMsg.ucLinkID, Equip_Rev_0V, m_OVIP, i_stMsg.buf);				
@@ -889,22 +889,22 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 				TRACE("**************수신국#1에 SW버전 결과 수신===================\n");
 				m_bEquipSW[SEND_DP_1] = true;
 			}
-			if(i_stMsg.ucOperatorID == SYSTEM_CLR_EQUIP2) //수신국#2
-			{
-				memcpy(&m_stSWVerRslt_2, i_stMsg.buf, i_stMsg.usMSize);
-				//m_bRevAsqDataFromDP[SEND_DP_2] = true;
-				TRACE("**************수신국#2에 SW버전 결과 수신===================\n");
-				m_bEquipSW[SEND_DP_2] = true;
-			}
-			if(i_stMsg.ucOperatorID == SYSTEM_CLR_EQUIP3) //수신국#3
-			{
-				memcpy(&m_stSWVerRslt_3, i_stMsg.buf, i_stMsg.usMSize);
-				//m_bRevAsqDataFromDP[SEND_DP_3] = true;
-				TRACE("**************수신국#3에 SW버전 결과 수신===================\n");
-				m_bEquipSW[SEND_DP_3] = true;
-			}
+			//if(i_stMsg.ucOperatorID == SYSTEM_CLR_EQUIP2) //수신국#2
+			//{
+			//	memcpy(&m_stSWVerRslt_2, i_stMsg.buf, i_stMsg.usMSize);
+			//	//m_bRevAsqDataFromDP[SEND_DP_2] = true;
+			//	TRACE("**************수신국#2에 SW버전 결과 수신===================\n");
+			//	m_bEquipSW[SEND_DP_2] = true;
+			//}
+			//if(i_stMsg.ucOperatorID == SYSTEM_CLR_EQUIP3) //수신국#3
+			//{
+			//	memcpy(&m_stSWVerRslt_3, i_stMsg.buf, i_stMsg.usMSize);
+			//	//m_bRevAsqDataFromDP[SEND_DP_3] = true;
+			//	TRACE("**************수신국#3에 SW버전 결과 수신===================\n");
+			//	m_bEquipSW[SEND_DP_3] = true;
+			//}
 
-			if(m_bEquipSW[SEND_DP_1] && m_bEquipSW[SEND_DP_2] && m_bEquipSW[SEND_DP_3])
+			if(m_bEquipSW[SEND_DP_1] /*&& m_bEquipSW[SEND_DP_2] && m_bEquipSW[SEND_DP_3]*/)
 			{
 				TRACE("**************수신국#1 ~ #3에 SW버전 결과 수신===================\n");	
 				m_iEQChkSWAckCnt = 0;
@@ -923,27 +923,27 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 					TRACE("[송신 실패]레이더분석-운용 SW버전#1 결과\n");
 				}
 
-				bRtnSend = m_hCommIF.Send(OPCODE_BD_OV_RSTSWVER, sizeof(m_stSWVerRslt_2), SEND_DP_2, Equip_Rev_0V, m_OVIP, &m_stSWVerRslt_2);	
+				/*bRtnSend = m_hCommIF.Send(OPCODE_BD_OV_RSTSWVER, sizeof(m_stSWVerRslt_2), SEND_DP_2, Equip_Rev_0V, m_OVIP, &m_stSWVerRslt_2);	
 
 				if(bRtnSend == true)
 				{
-					TRACE("[송신]레이더분석-운용 SW버전#2 결과\n");
+				TRACE("[송신]레이더분석-운용 SW버전#2 결과\n");
 				}
 				else
 				{
-					TRACE("[송신 실패]레이더분석-운용 SW버전#2 결과\n");
+				TRACE("[송신 실패]레이더분석-운용 SW버전#2 결과\n");
 				}
 
 				bRtnSend = m_hCommIF.Send(OPCODE_BD_OV_RSTSWVER, sizeof(m_stSWVerRslt_3), SEND_DP_3, Equip_Rev_0V, m_OVIP, &m_stSWVerRslt_3);	
 
 				if(bRtnSend == true)
 				{
-					TRACE("[송신]레이더분석-운용 SW버전#3 결과\n");
+				TRACE("[송신]레이더분석-운용 SW버전#3 결과\n");
 				}
 				else
 				{
-					TRACE("[송신 실패]레이더분석-운용 SW버전#3 결과\n");
-				}
+				TRACE("[송신 실패]레이더분석-운용 SW버전#3 결과\n");
+				}*/
 			}	
 
 			//bRtnSend = m_hCommIF.Send(OPCODE_BD_OV_RSTSWVER, i_stMsg.usMSize, i_stMsg.ucLinkID, Equip_Rev_0V, m_OVIP, i_stMsg.buf);	
@@ -970,22 +970,22 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 				TRACE("**************수신국#1에 초기자체점검 결과 수신===================\n");
 				m_bEquipPBIT[SEND_DP_1] = true;
 			}
-			if(i_stMsg.ucOperatorID == SYSTEM_CLR_EQUIP2) //수신국#2
-			{
-				memcpy(&m_stPBITRslt_2, i_stMsg.buf, i_stMsg.usMSize);
-				//m_bRevAsqDataFromDP[SEND_DP_2] = true;
-				TRACE("**************수신국#2에 초기자체점검 결과 수신===================\n");
-				m_bEquipPBIT[SEND_DP_2] = true;
-			}
-			if(i_stMsg.ucOperatorID == SYSTEM_CLR_EQUIP3) //수신국#3
-			{
-				memcpy(&m_stPBITRslt_3, i_stMsg.buf, i_stMsg.usMSize);
-				//m_bRevAsqDataFromDP[SEND_DP_3] = true;
-				TRACE("**************수신국#3에 초기자체점검 결과 수신===================\n");
-				m_bEquipPBIT[SEND_DP_3] = true;
-			}
+			//if(i_stMsg.ucOperatorID == SYSTEM_CLR_EQUIP2) //수신국#2
+			//{
+			//	memcpy(&m_stPBITRslt_2, i_stMsg.buf, i_stMsg.usMSize);
+			//	//m_bRevAsqDataFromDP[SEND_DP_2] = true;
+			//	TRACE("**************수신국#2에 초기자체점검 결과 수신===================\n");
+			//	m_bEquipPBIT[SEND_DP_2] = true;
+			//}
+			//if(i_stMsg.ucOperatorID == SYSTEM_CLR_EQUIP3) //수신국#3
+			//{
+			//	memcpy(&m_stPBITRslt_3, i_stMsg.buf, i_stMsg.usMSize);
+			//	//m_bRevAsqDataFromDP[SEND_DP_3] = true;
+			//	TRACE("**************수신국#3에 초기자체점검 결과 수신===================\n");
+			//	m_bEquipPBIT[SEND_DP_3] = true;
+			//}
 
-			if(m_bEquipPBIT[SEND_DP_1] && m_bEquipPBIT[SEND_DP_2] && m_bEquipPBIT[SEND_DP_3])
+			if(m_bEquipPBIT[SEND_DP_1] /*&& m_bEquipPBIT[SEND_DP_2] && m_bEquipPBIT[SEND_DP_3]*/)
 			{
 				TRACE("**************수신국#1 ~ #3에 초기자체점검 결과 수신===================\n");	
 				m_iEQChkPBITAckCnt = 0;
@@ -1004,27 +1004,27 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 					TRACE("[송신 실패]레이더분석-운용 초기자체점검#1 결과\n");
 				}
 
-				bRtnSend = m_hCommIF.Send(OPCODE_BD_OV_RSTPBIT, sizeof(m_stPBITRslt_2), SEND_DP_2, Equip_Rev_0V, m_OVIP, &m_stPBITRslt_2);	
+				/*bRtnSend = m_hCommIF.Send(OPCODE_BD_OV_RSTPBIT, sizeof(m_stPBITRslt_2), SEND_DP_2, Equip_Rev_0V, m_OVIP, &m_stPBITRslt_2);	
 
 				if(bRtnSend == true)
 				{
-					TRACE("[송신]레이더분석-운용 초기자체점검#2 결과\n");
+				TRACE("[송신]레이더분석-운용 초기자체점검#2 결과\n");
 				}
 				else
 				{
-					TRACE("[송신 실패]레이더분석-운용 초기자체점검#2 결과\n");
+				TRACE("[송신 실패]레이더분석-운용 초기자체점검#2 결과\n");
 				}
 
 				bRtnSend = m_hCommIF.Send(OPCODE_BD_OV_RSTPBIT, sizeof(m_stPBITRslt_3), SEND_DP_3, Equip_Rev_0V, m_OVIP, &m_stPBITRslt_3);	
 
 				if(bRtnSend == true)
 				{
-					TRACE("[송신]레이더분석-운용 초기자체점검#3 결과\n");
+				TRACE("[송신]레이더분석-운용 초기자체점검#3 결과\n");
 				}
 				else
 				{
-					TRACE("[송신 실패]레이더분석-운용 초기자체점검#3 결과\n");
-				}
+				TRACE("[송신 실패]레이더분석-운용 초기자체점검#3 결과\n");
+				}*/
 			}	
 
 			//bRtnSend = m_hCommIF.Send(OPCODE_BD_OV_RSTPBIT, i_stMsg.usMSize, i_stMsg.ucLinkID, Equip_Rev_0V, m_OVIP, i_stMsg.buf);	
@@ -1229,20 +1229,20 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 				TRACE("**************수신국#1에 자료 LOB 수신===================\n");
 				m_bAsqDoneFlag[SEND_DP_1] = true;
 			}
-			if(i_stMsg.ucOperatorID == SYSTEM_CLR_EQUIP2) //수신국#2
-			{
-				//m_bRevAsqDataFromDP[SEND_DP_2] = true;
-				TRACE("**************수신국#2에 자료 LOB 수신===================\n");
-				m_bAsqDoneFlag[SEND_DP_2] = true;
-			}
-			if(i_stMsg.ucOperatorID == SYSTEM_CLR_EQUIP3) //수신국#3
-			{
-				//m_bRevAsqDataFromDP[SEND_DP_3] = true;
-				TRACE("**************수신국#3에 자료 LOB 수신===================\n");
-				m_bAsqDoneFlag[SEND_DP_3] = true;
-			}
+			//if(i_stMsg.ucOperatorID == SYSTEM_CLR_EQUIP2) //수신국#2
+			//{
+			//	//m_bRevAsqDataFromDP[SEND_DP_2] = true;
+			//	TRACE("**************수신국#2에 자료 LOB 수신===================\n");
+			//	m_bAsqDoneFlag[SEND_DP_2] = true;
+			//}
+			//if(i_stMsg.ucOperatorID == SYSTEM_CLR_EQUIP3) //수신국#3
+			//{
+			//	//m_bRevAsqDataFromDP[SEND_DP_3] = true;
+			//	TRACE("**************수신국#3에 자료 LOB 수신===================\n");
+			//	m_bAsqDoneFlag[SEND_DP_3] = true;
+			//}
 
-			if(m_bAsqDoneFlag[SEND_DP_1] && m_bAsqDoneFlag[SEND_DP_2] && m_bAsqDoneFlag[SEND_DP_3])
+			if(m_bAsqDoneFlag[SEND_DP_1] /*&& m_bAsqDoneFlag[SEND_DP_2] && m_bAsqDoneFlag[SEND_DP_3]*/)
 			{
 				TRACE("**************수신국#1 ~ #3에 자료 LOB 수신===================\n");			
 				m_bAsqTotalFlag = true;
@@ -1300,7 +1300,7 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 
 			//다음 과제 전송
 			//방탐정보 수신국 3군데서 받은 후 다음 과제 전송
-			if(m_bAsqTotalFlag == true || (m_bAsqDoneFlag[SEND_DP_1] && m_bAsqDoneFlag[SEND_DP_2] && m_bAsqDoneFlag[SEND_DP_3]))
+			if(m_bAsqTotalFlag == true || (m_bAsqDoneFlag[SEND_DP_1] /*&& m_bAsqDoneFlag[SEND_DP_2] && m_bAsqDoneFlag[SEND_DP_3]*/))
 			{
 				ClearAsqDoneFlag();
 				TRACE("===*************88 과제 수집 완료로 인한 다음과제 요청***********==========\n");
@@ -1337,20 +1337,20 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 				TRACE("**************수신국#1에 자료 혼잡도 수신===================\n");
 				m_bDensityFlag[SEND_DP_1] = true;
 			}
-			if(i_stMsg.ucOperatorID == SYSTEM_CLR_EQUIP2) //수신국#2
-			{
-				memcpy(&m_stDensityDataOrg_2, i_stMsg.buf, i_stMsg.usMSize);
-				TRACE("**************수신국#2에 자료 혼잡도 수신===================\n");
-				m_bDensityFlag[SEND_DP_2] = true;
-			}
-			if(i_stMsg.ucOperatorID == SYSTEM_CLR_EQUIP3) //수신국#3
-			{
-				memcpy(&m_stDensityDataOrg_3, i_stMsg.buf, i_stMsg.usMSize);
-				TRACE("**************수신국#3에 자료 혼잡도 수신===================\n");
-				m_bDensityFlag[SEND_DP_3] = true;
-			}
+			//if(i_stMsg.ucOperatorID == SYSTEM_CLR_EQUIP2) //수신국#2
+			//{
+			//	memcpy(&m_stDensityDataOrg_2, i_stMsg.buf, i_stMsg.usMSize);
+			//	TRACE("**************수신국#2에 자료 혼잡도 수신===================\n");
+			//	m_bDensityFlag[SEND_DP_2] = true;
+			//}
+			//if(i_stMsg.ucOperatorID == SYSTEM_CLR_EQUIP3) //수신국#3
+			//{
+			//	memcpy(&m_stDensityDataOrg_3, i_stMsg.buf, i_stMsg.usMSize);
+			//	TRACE("**************수신국#3에 자료 혼잡도 수신===================\n");
+			//	m_bDensityFlag[SEND_DP_3] = true;
+			//}
 
-			if(m_bDensityFlag[SEND_DP_1] && m_bDensityFlag[SEND_DP_2] && m_bDensityFlag[SEND_DP_3])
+			if(m_bDensityFlag[SEND_DP_1] /*&& m_bDensityFlag[SEND_DP_2] && m_bDensityFlag[SEND_DP_3]*/)
 			{
 				// 레이더분석-운용 혼잡도 전송은 ICD 메시지 정의 안되어 있음
 				m_bDensityTotalFlag = true;
@@ -1530,30 +1530,30 @@ void CRadarAnalysisMngr::ReqPDWNextTask()
 
 		//if(m_stCurTaskData.uiRvcUseStat2 == TK_USE)
 		//{
-		bRtnSend = m_hCommIF.Send(OPCODE_BD_TF_REQNEXTTASK, sizeof(STxAcqTraskRequest), SEND_DP_2, Equip_Rev_BD, m_OVIP, stMsg.buf);	// 수신국#2
+		//bRtnSend = m_hCommIF.Send(OPCODE_BD_TF_REQNEXTTASK, sizeof(STxAcqTraskRequest), SEND_DP_2, Equip_Rev_BD, m_OVIP, stMsg.buf);	// 수신국#2
 
-		if(bRtnSend == true)
-		{
-			TRACE("[송신]레이더분석-레이더방탐#2 수집 NEXT 과제 요구\n");
-		}
-		else
-		{
-			TRACE("[송신 실패]레이더분석-레이더방탐#2 수집 NEXT 과제 요구\n");
-		}
+		//if(bRtnSend == true)
+		//{
+		//	TRACE("[송신]레이더분석-레이더방탐#2 수집 NEXT 과제 요구\n");
+		//}
+		//else
+		//{
+		//	TRACE("[송신 실패]레이더분석-레이더방탐#2 수집 NEXT 과제 요구\n");
+		//}
 		//}
 
 		//if(m_stCurTaskData.uiRvcUseStat3 == TK_USE)
 		//{
-		bRtnSend = m_hCommIF.Send(OPCODE_BD_TF_REQNEXTTASK, sizeof(STxAcqTraskRequest), SEND_DP_3, Equip_Rev_BD, m_OVIP, stMsg.buf);	// 수신국#3
+		//bRtnSend = m_hCommIF.Send(OPCODE_BD_TF_REQNEXTTASK, sizeof(STxAcqTraskRequest), SEND_DP_3, Equip_Rev_BD, m_OVIP, stMsg.buf);	// 수신국#3
 
-		if(bRtnSend == true)
-		{
-			TRACE("[송신]레이더분석-레이더방탐#3 수집 NEXT 과제 요구\n");
-		}
-		else
-		{
-			TRACE("[송신 실패]레이더분석-레이더방탐#3 수집 NEXT 과제 요구\n");
-		}
+		//if(bRtnSend == true)
+		//{
+		//	TRACE("[송신]레이더분석-레이더방탐#3 수집 NEXT 과제 요구\n");
+		//}
+		//else
+		//{
+		//	TRACE("[송신 실패]레이더분석-레이더방탐#3 수집 NEXT 과제 요구\n");
+		//}
 		//}
 
 		ClearAsqDoneFlag();
@@ -1588,27 +1588,27 @@ void CRadarAnalysisMngr::ReqCurTaskFromIQ()
 		TRACE("[송신 실패]레이더분석-레이더방탐#1 수집 NEXT 과제 요구\n");
 	}
 	
-	bRtnSend = m_hCommIF.Send(OPCODE_BD_TF_REQNEXTTASK, sizeof(STxAcqTraskRequest), SEND_DP_2, Equip_Rev_BD, m_OVIP, stMsg.buf);	// 수신국#2
+	//bRtnSend = m_hCommIF.Send(OPCODE_BD_TF_REQNEXTTASK, sizeof(STxAcqTraskRequest), SEND_DP_2, Equip_Rev_BD, m_OVIP, stMsg.buf);	// 수신국#2
 
-	if(bRtnSend == true)
-	{
-		TRACE("[송신]레이더분석-레이더방탐#2 수집 NEXT 과제 요구\n");
-	}
-	else
-	{
-		TRACE("[송신 실패]레이더분석-레이더방탐#2 수집 NEXT 과제 요구\n");
-	}
+	//if(bRtnSend == true)
+	//{
+	//	TRACE("[송신]레이더분석-레이더방탐#2 수집 NEXT 과제 요구\n");
+	//}
+	//else
+	//{
+	//	TRACE("[송신 실패]레이더분석-레이더방탐#2 수집 NEXT 과제 요구\n");
+	//}
 	
-	bRtnSend = m_hCommIF.Send(OPCODE_BD_TF_REQNEXTTASK, sizeof(STxAcqTraskRequest), SEND_DP_3, Equip_Rev_BD, m_OVIP, stMsg.buf);	// 수신국#3
+	//bRtnSend = m_hCommIF.Send(OPCODE_BD_TF_REQNEXTTASK, sizeof(STxAcqTraskRequest), SEND_DP_3, Equip_Rev_BD, m_OVIP, stMsg.buf);	// 수신국#3
 
-	if(bRtnSend == true)
-	{
-		TRACE("[송신]레이더분석-레이더방탐#3 수집 NEXT 과제 요구\n");
-	}
-	else
-	{
-		TRACE("[송신 실패]레이더분석-레이더방탐#3 수집 NEXT 과제 요구\n");
-	}
+	//if(bRtnSend == true)
+	//{
+	//	TRACE("[송신]레이더분석-레이더방탐#3 수집 NEXT 과제 요구\n");
+	//}
+	//else
+	//{
+	//	TRACE("[송신 실패]레이더분석-레이더방탐#3 수집 NEXT 과제 요구\n");
+	//}
 
 	ClearAsqDoneFlag();
 	StartTaskFlagCheckTimer();
@@ -1674,7 +1674,7 @@ void CRadarAnalysisMngr::TaskAsqReqCheck()
 		m_TaskAcqCnt = 0;
 		TRACE("===과제 수집시간 종료로 인한 다음과제 요청 m_bAsqTotalFlag %d==========\n", m_bAsqTotalFlag);
 
-		if(m_bAsqTotalFlag == false || (m_bAsqDoneFlag[SEND_DP_1] == false && m_bAsqDoneFlag[SEND_DP_2] == false && m_bAsqDoneFlag[SEND_DP_3] == false) )
+		if(m_bAsqTotalFlag == false || (m_bAsqDoneFlag[SEND_DP_1] == false /*&& m_bAsqDoneFlag[SEND_DP_2] == false && m_bAsqDoneFlag[SEND_DP_3] == false*/) )
 		{
 			if(m_bDensityTotalFlag == false)
 				SendDensityDataFromTimeOut();
@@ -1700,7 +1700,7 @@ void CRadarAnalysisMngr::ClearEquipInitFlag(int i_nEqType)
 	{
 	case EQ_INT:
 		{
-			for(int i=0; i < RCV_DP_NUM; i++)
+			for(int i=0; i < 1; i++)
 			{
 				m_bEquipInit[i] = false;		
 			}	
@@ -1708,7 +1708,7 @@ void CRadarAnalysisMngr::ClearEquipInitFlag(int i_nEqType)
 		break;
 	case EQ_SW:
 		{
-			for(int i=0; i < RCV_DP_NUM; i++)
+			for(int i=0; i < 1; i++)
 			{
 				m_bEquipSW[i] = false;		
 			}	
@@ -1716,7 +1716,7 @@ void CRadarAnalysisMngr::ClearEquipInitFlag(int i_nEqType)
 		break;
 	case EQ_PBT:
 		{
-			for(int i=0; i < RCV_DP_NUM; i++)
+			for(int i=0; i < 1; i++)
 			{
 				m_bEquipPBIT[i] = false;		
 			}	
@@ -1724,7 +1724,7 @@ void CRadarAnalysisMngr::ClearEquipInitFlag(int i_nEqType)
 		break;
 	case EQ_IBT:
 		{
-			for(int i=0; i < RCV_DP_NUM; i++)
+			for(int i=0; i < 1; i++)
 			{
 				m_bEquipIBIT[i] = false;		
 			}	
@@ -1740,7 +1740,7 @@ void CRadarAnalysisMngr::ClearEquipInitFlag(int i_nEqType)
 void CRadarAnalysisMngr::ClearAsqDoneFlag()
 {
 	m_TaskAcqCnt = 0;
-	for(int i=0; i < RCV_DP_NUM; i++)
+	for(int i=0; i < 1; i++)
 	{
 		m_bAsqDoneFlag[i] = false;		
 	}
@@ -1748,7 +1748,7 @@ void CRadarAnalysisMngr::ClearAsqDoneFlag()
 
 void CRadarAnalysisMngr::ClearDensityFlag()
 {
-	for(int i=0; i < RCV_DP_NUM; i++)
+	for(int i=0; i < 1; i++)
 	{
 		m_bDensityFlag[i] = false;		
 	}
@@ -2039,21 +2039,21 @@ void CRadarAnalysisMngr::SendDensityDataFromTimeOut()
 			stDensityTotalData.fDensity_1 = 0;
 	}
 
-	if(m_bDensityFlag[SEND_DP_2] == true)
-		stDensityTotalData.fDensity_2 = m_stDensityDataOrg_2.fDensity;
+	/*if(m_bDensityFlag[SEND_DP_2] == true)
+	stDensityTotalData.fDensity_2 = m_stDensityDataOrg_2.fDensity;
 	else
 	{
-		if(m_bAsqDoneFlag[SEND_DP_2] == false)
-			stDensityTotalData.fDensity_2 = 0;
+	if(m_bAsqDoneFlag[SEND_DP_2] == false)
+	stDensityTotalData.fDensity_2 = 0;
 	}
 
 	if(m_bDensityFlag[SEND_DP_3] == true)
-		stDensityTotalData.fDensity_3 = m_stDensityDataOrg_3.fDensity;
+	stDensityTotalData.fDensity_3 = m_stDensityDataOrg_3.fDensity;
 	else
 	{
-		if(m_bAsqDoneFlag[SEND_DP_3] == false)
-			stDensityTotalData.fDensity_3 = 0;
-	}
+	if(m_bAsqDoneFlag[SEND_DP_3] == false)
+	stDensityTotalData.fDensity_3 = 0;
+	}*/
 
 	bRtnSend = m_hCommIF.Send(OPCODE_BD_OV_SENDDENSITY, sizeof(STR_DensityData), SEND_DP_1, Equip_Rev_0V, m_OVIP, &stDensityTotalData);	
 
