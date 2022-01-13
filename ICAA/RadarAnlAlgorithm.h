@@ -19,26 +19,26 @@
 
 #define LENGTH_OF_TASK_ID			                                (19+1)		//과제ID 문자열 길이 (TBD)
 
-#ifndef _MAX_ELNOT_STRING_SIZE_
-#define _MAX_ELNOT_STRING_SIZE_										(10+_NULL_CHAR_)
-#endif
+// #ifndef _MAX_ELNOT_STRING_SIZE_
+// #define _MAX_ELNOT_STRING_SIZE_										(10+_NULL_CHAR_)
+// #endif
 
-#ifndef _MAX_SIZE_OF_MODECODE
-#define _MAX_SIZE_OF_MODECODE                                       (4)
-#endif
+// #ifndef _MAX_SIZE_OF_MODECODE
+// #define _MAX_SIZE_OF_MODECODE                                       (4)
+// #endif
 
 
-#define _MAX_MODECODE_STRING_SIZE_									(2+_NULL_CHAR_)
+//#define _MAX_MODECODE_STRING_SIZE_									(2+_NULL_CHAR_)
 
-#ifndef _MAX_RADARMODE_NAME_SIZE
-#define _MAX_RADARMODE_NAME_SIZE									(10)
-#endif
+// #ifndef _MAX_RADARMODE_NAME_SIZE
+// #define _MAX_RADARMODE_NAME_SIZE									(10)
+// #endif
 
-#define _MAX_FUNCTIONCODE_STRING_SIZE_								(4+_NULL_CHAR_)
+//#define _MAX_FUNCTIONCODE_STRING_SIZE_								(4+_NULL_CHAR_)
 
-#ifndef _MAX_NICKNAME_STRING_SIZE_
-#define _MAX_NICKNAME_STRING_SIZE_									(30+_NULL_CHAR_)
-#endif
+// #ifndef _MAX_NICKNAME_STRING_SIZE_
+// #define _MAX_NICKNAME_STRING_SIZE_									(30+_NULL_CHAR_)
+// #endif
 
 
 #ifndef _ENUM_BANDWIDTH_

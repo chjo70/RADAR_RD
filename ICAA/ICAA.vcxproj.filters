@@ -25,6 +25,9 @@
     <Filter Include="ThreadTask">
       <UniqueIdentifier>{0f1798fd-ab2b-4b88-ae40-359e3437c9e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ThreadTask\RadarAnlAlgorithm">
+      <UniqueIdentifier>{9884b99c-bc8c-4597-83ef-f59480b36d2d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -122,6 +125,12 @@
     </ClInclude>
     <ClInclude Include="ThreadTask\DFEquipBITMngr.h">
       <Filter>ThreadTask</Filter>
+    </ClInclude>
+    <ClInclude Include="RadarAnlAlgorithm.h">
+      <Filter>ThreadTask\RadarAnlAlgorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="RadarDirAlgorithm.h">
+      <Filter>ThreadTask\RadarAnlAlgorithm</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
