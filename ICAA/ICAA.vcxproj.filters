@@ -25,7 +25,7 @@
     <Filter Include="ThreadTask">
       <UniqueIdentifier>{0f1798fd-ab2b-4b88-ae40-359e3437c9e6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ThreadTask\RadarAnlAlgorithm">
+    <Filter Include="RadarAnlAlgorithm">
       <UniqueIdentifier>{9884b99c-bc8c-4597-83ef-f59480b36d2d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -124,10 +124,10 @@
       <Filter>ThreadTask</Filter>
     </ClInclude>
     <ClInclude Include="RadarAnlAlgorithm.h">
-      <Filter>ThreadTask\RadarAnlAlgorithm</Filter>
+      <Filter>RadarAnlAlgorithm</Filter>
     </ClInclude>
     <ClInclude Include="RadarDirAlgorithm.h">
-      <Filter>ThreadTask\RadarAnlAlgorithm</Filter>
+      <Filter>RadarAnlAlgorithm</Filter>
     </ClInclude>
     <ClInclude Include="RadarAnalysisMngr.h">
       <Filter>소스 파일</Filter>
