@@ -113,6 +113,7 @@
     <None Include="ReadMe.txt" />
     <None Include="res\ICAA.ico" />
     <None Include="res\ICAA.rc2" />
+    <None Include="res\radar.ico" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ADSBReceivedProcessMngr.h" />

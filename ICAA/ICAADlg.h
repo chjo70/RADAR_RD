@@ -9,6 +9,7 @@
 #include "ThreadTask/DFTaskMngr.h"
 #include "ThreadTask/DFEquipBITMngr.h"
 #include "RadarAnalysisMngr.h"
+#include "afxwin.h"
 
 // CICAADlg 대화 상자
 
@@ -18,6 +19,11 @@ class CICAADlg : public CDialogEx
 public:
 	CICAADlg(CWnd* pParent = NULL);	// 표준 생성자입니다.
 	~CICAADlg();
+
+	void EnableRadarDRStatus( BOOL bEnable );
+	void EnableOperatorStatus( BOOL bEnable );
+	void Log( STR_LOGMESSAGE *pMsg );
+	void Log( enENUM_ITEM enItemType , char *pszContents );
 
 // 대화 상자 데이터입니다.
 	enum { IDD = IDD_ICAA_DIALOG };
@@ -38,9 +44,12 @@ protected:
 public:
 	CListCtrl m_LoglistCtrl;
 
-public:
 	int m_iTotalNumOfLog;
 	bool m_bFlagLogShow;
+
+public:
+	afx_msg LRESULT OnLOGMessage( WPARAM wParam, LPARAM lParam );
+	afx_msg LRESULT OnStatus( WPARAM wParam, LPARAM lParam );
 
 	afx_msg void OnBnClickedBtnSavelog();
 	afx_msg void OnBnClickedBtnClearlog();
@@ -50,4 +59,6 @@ public:
 	CDFEquipBITMngr m_DFEquipBITMngr;
 	CRadarAnalysisMngr m_RadarAnlyMngr;
 	afx_msg void OnBnClickedButton1();
+	CMFCButton m_CButtonOperatorStatus;
+	CMFCButton m_CButtonRadarDRStatus;
 };

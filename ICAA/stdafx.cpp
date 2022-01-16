@@ -5,4 +5,4 @@
 
 #include "stdafx.h"
 
-
+HWND g_DlgHandle;

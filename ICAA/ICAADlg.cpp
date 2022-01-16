@@ -19,6 +19,7 @@ using namespace std;
 #define new DEBUG_NEW
 #endif
 
+char g_stLogItemType[enMAXItems][20] = { "시스템", "로그", "에러" } ;
 
 
 // 응용 프로그램 정보에 사용되는 CAboutDlg 대화 상자입니다.
@@ -75,6 +76,8 @@ void CICAADlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LIST_LOG, m_LoglistCtrl);
+	DDX_Control(pDX, IDC_BTN_OPERATOR_STATUS, m_CButtonOperatorStatus);
+	DDX_Control(pDX, IDC_BTN_RADARDR_STATUS, m_CButtonRadarDRStatus);
 }
 
 BEGIN_MESSAGE_MAP(CICAADlg, CDialogEx)
@@ -84,6 +87,9 @@ BEGIN_MESSAGE_MAP(CICAADlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BTN_SAVELOG, &CICAADlg::OnBnClickedBtnSavelog)
 	ON_BN_CLICKED(IDC_BTN_CLEARLOG, &CICAADlg::OnBnClickedBtnClearlog)
 	ON_BN_CLICKED(IDC_BUTTON1, &CICAADlg::OnBnClickedButton1)
+
+	ON_MESSAGE(UWM_USER_LOG_MSG, OnLOGMessage )
+	ON_MESSAGE(UWM_USER_STAT_MSG, OnStatus )
 END_MESSAGE_MAP()
 
 
@@ -122,6 +128,9 @@ BOOL CICAADlg::OnInitDialog()
 	// 최상단 메뉴 틀 제공
 	CRect rt;
 
+	EnableRadarDRStatus( FALSE );
+	EnableOperatorStatus( FALSE );
+
 	m_LoglistCtrl.GetWindowRect(&rt);
 	m_LoglistCtrl.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT);
 
@@ -129,9 +138,11 @@ BOOL CICAADlg::OnInitDialog()
 	m_LoglistCtrl.InsertColumn(1, TEXT("항목"), LVCFMT_LEFT, (int)(rt.Width()*0.2));
 	m_LoglistCtrl.InsertColumn(2, TEXT("내용"), LVCFMT_LEFT, (int)(rt.Width()*0.6));
 
-	this->SetWindowText("ICAA_RD");
+	this->SetWindowText("레이더 분석(관리/식별)");
 	//CICAAMngr::GetInstance();
 	CADSBReceivedProcessMngr::GetInstance();
+
+	Log( enSYSTEM , "프로그램이 시작되었습니다." );
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -266,4 +277,89 @@ void CICAADlg::OnBnClickedButton1()
 	//CDFTaskMngr::GetInstance()->SendDummyMsg();
 
 	//CRadarAnalysisMngr::GetInstance()->SendDummyMsg();
+}
+
+
+
+LRESULT CICAADlg::OnLOGMessage( WPARAM wParam, LPARAM lParam )
+{
+	// 메시지를 받아서 처리하는 함수
+	char *pszContents = (char *) wParam;
+	enENUM_ITEM enItemType = (enENUM_ITEM ) lParam;
+
+	TRACE( pszContents );
+	Log( enItemType, pszContents );
+
+	//AfxMessageBox(msg->GetString());
+	return 0;
+}
+
+void CICAADlg::Log( enENUM_ITEM enItemType , char *pszContents )
+{
+	STR_LOGMESSAGE stMsg;
+
+	stMsg.enItemType = enItemType;
+	strcpy( stMsg.szContents, pszContents );
+
+	Log( & stMsg );
+}
+
+void CICAADlg::Log( STR_LOGMESSAGE *pMsg )
+{
+	int nItemNum = m_LoglistCtrl.GetItemCount();
+
+	char szBuffer[100];
+
+	sprintf( szBuffer, "%d" , m_iTotalNumOfLog );
+	m_LoglistCtrl.InsertItem( nItemNum, szBuffer );
+
+	sprintf( szBuffer, "%ㄴ" , g_stLogItemType[ pMsg->enItemType ] );
+	m_LoglistCtrl.SetItemText( nItemNum, 1, szBuffer );
+	m_LoglistCtrl.SetItemText( nItemNum, 2, pMsg->szContents );
+
+	++ m_iTotalNumOfLog;
+
+}
+
+void CICAADlg::EnableRadarDRStatus( BOOL bEnable )
+{
+	if( bEnable == TRUE ) {
+		m_CButtonRadarDRStatus.SetFaceColor(RGB(0,0,255),true);
+	}
+	else {
+		m_CButtonRadarDRStatus.SetFaceColor(RGB(255,0,0),true);
+	}
+
+}
+
+void CICAADlg::EnableOperatorStatus( BOOL bEnable )
+{
+	if( bEnable == TRUE ) {
+		m_CButtonOperatorStatus.SetFaceColor(RGB(0,0,255),true);
+	}
+	else {
+		m_CButtonOperatorStatus.SetFaceColor(RGB(255,0,0),true);
+	}
+
+}
+
+LRESULT CICAADlg::OnStatus( WPARAM wParam, LPARAM lParam )
+{
+	// 메시지를 받아서 처리하는 함수
+	enENUM_STATUS_UNIT enStatusUnit = (enENUM_STATUS_UNIT ) wParam;
+	BOOL bEnable = (BOOL ) lParam;
+
+	switch( enStatusUnit ) {
+	case enOperator :
+		EnableOperatorStatus( bEnable );
+		break;
+	case enRADARDR :
+		EnableRadarDRStatus( bEnable );
+		break;
+
+	default:
+		break;
+	}
+
+	return 0;
 }
