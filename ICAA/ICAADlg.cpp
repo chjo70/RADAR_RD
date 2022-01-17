@@ -126,6 +126,8 @@ BOOL CICAADlg::OnInitDialog()
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
 	// 최상단 메뉴 틀 제공
+	g_DlgHandle = GetSafeHwnd();
+
 	CRect rt;
 
 	EnableRadarDRStatus( FALSE );
@@ -284,9 +286,10 @@ void CICAADlg::OnBnClickedButton1()
 LRESULT CICAADlg::OnLOGMessage( WPARAM wParam, LPARAM lParam )
 {
 	// 메시지를 받아서 처리하는 함수
-	char *pszContents = (char *) wParam;
-	enENUM_ITEM enItemType = (enENUM_ITEM ) lParam;
-
+	enENUM_ITEM enItemType = (enENUM_ITEM ) wParam;
+	char *pszContents = (char *) lParam;
+	
+	TRACE( "\n" );
 	TRACE( pszContents );
 	Log( enItemType, pszContents );
 
@@ -313,7 +316,7 @@ void CICAADlg::Log( STR_LOGMESSAGE *pMsg )
 	sprintf( szBuffer, "%d" , m_iTotalNumOfLog );
 	m_LoglistCtrl.InsertItem( nItemNum, szBuffer );
 
-	sprintf( szBuffer, "%ㄴ" , g_stLogItemType[ pMsg->enItemType ] );
+	sprintf( szBuffer, "%s" , g_stLogItemType[ pMsg->enItemType ] );
 	m_LoglistCtrl.SetItemText( nItemNum, 1, szBuffer );
 	m_LoglistCtrl.SetItemText( nItemNum, 2, pMsg->szContents );
 

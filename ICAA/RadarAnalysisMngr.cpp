@@ -2,6 +2,11 @@
 #include "RadarAnalysisMngr.h"
 #include "ThreadTask/DFMsgDefnt.h"
 
+
+
+
+
+
 // 운용-레이더분석 OPCODE
 #define OPCODE_OV_BD_REQINIT		0x01020100		// 운용-레이더분석 초기화 요구
 #define OPCODE_OV_BD_REQSWVER		0x01020200		// 운용-레이더분석 SW버전 요구
@@ -105,6 +110,7 @@ void CALLBACK ReqSWVersionProc(PVOID lpParam, BOOLEAN TimerOrWaitFired);
 void CALLBACK ReqPBITProc(PVOID lpParam, BOOLEAN TimerOrWaitFired);
 void CALLBACK ReqIBITProc(PVOID lpParam, BOOLEAN TimerOrWaitFired);
 void (CALLBACK *FUNCEQUIPCHECKTIMER[EQ_CHK_NUM])(PVOID,BOOLEAN) = {ReqInitEquipStatusProc, ReqSWVersionProc, ReqPBITProc, ReqIBITProc};
+
 
 CRadarAnalysisMngr::CRadarAnalysisMngr()
 :m_hCommIF_RAMngr(m_hCommIF)
@@ -276,6 +282,8 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 	// OPCODE별로 경우를 나열하여 처리하는 로직 구현 필요
 	// 하단에 구현
 	bool bRtnSend = false;
+
+	STR_LOGMESSAGE stMsg;
 
 	switch(i_stMsg.uiOpcode)
 	{
@@ -1255,7 +1263,10 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 			STR_LOBDATA stLOBData;
 
 			stLOBData.stLOBHeader.iNumOfLOB = i_stMsg.usMSize / sizeof(SRxLOBData);
-			TRACE("**************[수신]레이더분석-레이더방탐 LOB 수신 개수%d============\n", stLOBData.stLOBHeader.iNumOfLOB);
+			//TRACE("**************[수신]레이더분석-레이더방탐 LOB 수신 개수%d============\n", stLOBData.stLOBHeader.iNumOfLOB);
+			sprintf( stMsg.szContents, "[수신]레이더분석-레이더방탐 LOB 수신 개수 : %d", stLOBData.stLOBHeader.iNumOfLOB );
+			::SendMessage( g_DlgHandle, UWM_USER_LOG_MSG, (WPARAM) enSYSTEM, (LPARAM) & stMsg.szContents[0] );
+
 			memcpy(&stLOBData.stLOBData, i_stMsg.buf, i_stMsg.usMSize);
 			//STR_ABTDATA *pABTData, txABTData;
 			RadarAnlAlgotirhm::RadarAnlAlgotirhm::Start(&stLOBData);
