@@ -9,6 +9,8 @@
 #include "ThreadTask\\DFTaskMngr.h"
 #include "ADSBReceivedProcessMngr.h"
 
+#include "RadarAnlAlgorithm.h"
+
 #include "afxdialogex.h"
 
 #include <sstream>
@@ -90,6 +92,7 @@ BEGIN_MESSAGE_MAP(CICAADlg, CDialogEx)
 
 	ON_MESSAGE(UWM_USER_LOG_MSG, OnLOGMessage )
 	ON_MESSAGE(UWM_USER_STAT_MSG, OnStatus )
+	ON_BN_CLICKED(IDC_BTN_LOADCEDEOB, &CICAADlg::OnBnClickedBtnLoadcedeob)
 END_MESSAGE_MAP()
 
 
@@ -320,6 +323,8 @@ void CICAADlg::Log( STR_LOGMESSAGE *pMsg )
 	m_LoglistCtrl.SetItemText( nItemNum, 1, szBuffer );
 	m_LoglistCtrl.SetItemText( nItemNum, 2, pMsg->szContents );
 
+	m_LoglistCtrl.SendMessage( WM_VSCROLL, SB_BOTTOM );
+
 	++ m_iTotalNumOfLog;
 
 }
@@ -327,10 +332,12 @@ void CICAADlg::Log( STR_LOGMESSAGE *pMsg )
 void CICAADlg::EnableRadarDRStatus( BOOL bEnable )
 {
 	if( bEnable == TRUE ) {
+		m_CButtonRadarDRStatus.SetWindowTextA( "레이더 방탐 연결" );
 		m_CButtonRadarDRStatus.SetFaceColor(RGB(0,0,255),true);
 	}
 	else {
 		m_CButtonRadarDRStatus.SetFaceColor(RGB(255,0,0),true);
+		m_CButtonRadarDRStatus.SetWindowTextA( "레이더 방탐 미연결" );
 	}
 
 }
@@ -338,9 +345,11 @@ void CICAADlg::EnableRadarDRStatus( BOOL bEnable )
 void CICAADlg::EnableOperatorStatus( BOOL bEnable )
 {
 	if( bEnable == TRUE ) {
+		m_CButtonOperatorStatus.SetWindowTextA( "운용 소프트웨어 연결" );
 		m_CButtonOperatorStatus.SetFaceColor(RGB(0,0,255),true);
 	}
 	else {
+		m_CButtonOperatorStatus.SetWindowTextA( "운용 소프트웨어 미연결" );
 		m_CButtonOperatorStatus.SetFaceColor(RGB(255,0,0),true);
 	}
 
@@ -365,4 +374,11 @@ LRESULT CICAADlg::OnStatus( WPARAM wParam, LPARAM lParam )
 	}
 
 	return 0;
+}
+
+void CICAADlg::OnBnClickedBtnLoadcedeob()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+
+	RadarAnlAlgotirhm::RadarAnlAlgotirhm::UpdateCEDEOBLibrary();
 }

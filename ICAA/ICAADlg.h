@@ -61,4 +61,5 @@ public:
 	afx_msg void OnBnClickedButton1();
 	CMFCButton m_CButtonOperatorStatus;
 	CMFCButton m_CButtonRadarDRStatus;
+	afx_msg void OnBnClickedBtnLoadcedeob();
 };
