@@ -21,10 +21,10 @@ using namespace std;
 #define new DEBUG_NEW
 #endif
 
-char g_stLogItemType[enMAXItems][20] = { "시스템", "로그", "에러" } ;
-
 
 // 응용 프로그램 정보에 사용되는 CAboutDlg 대화 상자입니다.
+
+#define     MAX_LOGCOUNT        (100)
 
 class CAboutDlg : public CDialogEx
 {
@@ -65,7 +65,7 @@ CICAADlg::CICAADlg(CWnd* pParent /*=NULL*/)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 
-	m_iTotalNumOfLog = 0;
+	m_iTotalNumOfLog = 1;
 	m_bFlagLogShow = true;	
 }
 
@@ -139,9 +139,9 @@ BOOL CICAADlg::OnInitDialog()
 	m_LoglistCtrl.GetWindowRect(&rt);
 	m_LoglistCtrl.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT);
 
-	m_LoglistCtrl.InsertColumn(0, TEXT("순번"), LVCFMT_LEFT, (int)(rt.Width()*0.2));
-	m_LoglistCtrl.InsertColumn(1, TEXT("항목"), LVCFMT_LEFT, (int)(rt.Width()*0.2));
-	m_LoglistCtrl.InsertColumn(2, TEXT("내용"), LVCFMT_LEFT, (int)(rt.Width()*0.6));
+	m_LoglistCtrl.InsertColumn(0, TEXT("순번"), LVCFMT_LEFT, (int)(rt.Width()*0.1));
+	m_LoglistCtrl.InsertColumn(1, TEXT("항목"), LVCFMT_LEFT, (int)(rt.Width()*0.1));
+	m_LoglistCtrl.InsertColumn(2, TEXT("내용"), LVCFMT_LEFT, (int)(rt.Width()*0.8));
 
 	this->SetWindowText("레이더 분석(관리/식별)");
 	//CICAAMngr::GetInstance();
@@ -310,11 +310,26 @@ void CICAADlg::Log( enENUM_ITEM enItemType , char *pszContents )
 	Log( & stMsg );
 }
 
+/**
+ * @brief     Log
+ * @param     STR_LOGMESSAGE * pMsg
+ * @return    void
+ * @exception
+ * @author    조철희 (churlhee.jo@lignex1.com)
+ * @version   0.0.1
+ * @date      2022-01-23, 13:18
+ * @warning
+ */
 void CICAADlg::Log( STR_LOGMESSAGE *pMsg )
 {
 	int nItemNum = m_LoglistCtrl.GetItemCount();
 
 	char szBuffer[100];
+
+    if( nItemNum > MAX_LOGCOUNT ) {
+        m_LoglistCtrl.DeleteAllItems();
+        nItemNum = m_LoglistCtrl.GetItemCount();
+    }
 
 	sprintf( szBuffer, "%d" , m_iTotalNumOfLog );
 	m_LoglistCtrl.InsertItem( nItemNum, szBuffer );
@@ -329,6 +344,16 @@ void CICAADlg::Log( STR_LOGMESSAGE *pMsg )
 
 }
 
+/**
+ * @brief     EnableRadarDRStatus
+ * @param     BOOL bEnable
+ * @return    void
+ * @exception
+ * @author    조철희 (churlhee.jo@lignex1.com)
+ * @version   0.0.1
+ * @date      2022-01-23, 13:18
+ * @warning
+ */
 void CICAADlg::EnableRadarDRStatus( BOOL bEnable )
 {
 	if( bEnable == TRUE ) {
@@ -342,6 +367,16 @@ void CICAADlg::EnableRadarDRStatus( BOOL bEnable )
 
 }
 
+/**
+ * @brief     EnableOperatorStatus
+ * @param     BOOL bEnable
+ * @return    void
+ * @exception
+ * @author    조철희 (churlhee.jo@lignex1.com)
+ * @version   0.0.1
+ * @date      2022-01-23, 13:18
+ * @warning
+ */
 void CICAADlg::EnableOperatorStatus( BOOL bEnable )
 {
 	if( bEnable == TRUE ) {
@@ -355,6 +390,17 @@ void CICAADlg::EnableOperatorStatus( BOOL bEnable )
 
 }
 
+/**
+ * @brief     OnStatus
+ * @param     WPARAM wParam
+ * @param     LPARAM lParam
+ * @return    LRESULT
+ * @exception
+ * @author    조철희 (churlhee.jo@lignex1.com)
+ * @version   0.0.1
+ * @date      2022-01-23, 13:18
+ * @warning
+ */
 LRESULT CICAADlg::OnStatus( WPARAM wParam, LPARAM lParam )
 {
 	// 메시지를 받아서 처리하는 함수

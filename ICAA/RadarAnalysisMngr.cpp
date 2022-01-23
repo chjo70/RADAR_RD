@@ -1265,8 +1265,8 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 
 			stLOBData.stLOBHeader.iNumOfLOB = i_stMsg.usMSize / sizeof(SRxLOBData);
 			//TRACE("**************[수신]레이더분석-레이더방탐 LOB 수신 개수%d============\n", stLOBData.stLOBHeader.iNumOfLOB);
-			sprintf( stMsg.szContents, "[수신]레이더분석-레이더방탐 LOB 수신 개수 : %d", stLOBData.stLOBHeader.iNumOfLOB );
-			::SendMessage( g_DlgHandle, UWM_USER_LOG_MSG, (WPARAM) enSYSTEM, (LPARAM) & stMsg.szContents[0] );
+			sprintf( stMsg.szContents, "레이더분석-레이더방탐 LOB 수신 개수 : %d", stLOBData.stLOBHeader.iNumOfLOB );
+			::SendMessage( g_DlgHandle, UWM_USER_LOG_MSG, (WPARAM) enRECV, (LPARAM) & stMsg.szContents[0] );
 
 			memcpy(&stLOBData.stLOBData, i_stMsg.buf, i_stMsg.usMSize);
 			//STR_ABTDATA *pABTData, txABTData;
@@ -1282,22 +1282,28 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 			//memcpy(&txABTData, pABTData, sizeof(txABTData));
 			///////////////////////////////////////////////////////////////////////////////
 			//LOB 데이터 전송
-			for(int i=0; i< stResLOBData.stLOBHeader.iNumOfLOB; i++)
+			for(int i=0; i< stResLOBData.stLOBHeader.iNumOfLOB; i++) {
 				bRtnSend = m_hCommIF.Send(OPCODE_BD_OV_SENDLOB, sizeof(SRxLOBData), i_stMsg.ucLinkID, Equip_Rev_0V, m_OVIP, &stResLOBData.stLOBData[i]);	
+            }
 
 			if(bRtnSend == true)
 			{
-				TRACE("[송신]레이더분석-운용 LOB 전송\n");
+				//TRACE("[송신]레이더분석-운용 LOB 전송\n");
+                sprintf( stMsg.szContents, "레이더분석-운용 LOB 전송[%d]", stLOBData.stLOBHeader.iNumOfLOB );
+                ::SendMessage( g_DlgHandle, UWM_USER_LOG_MSG, (WPARAM) enSEND, (LPARAM) & stMsg.szContents[0] );
 			}
 			else
 			{
-				TRACE("[송신 실패]레이더분석-운용 LOB 전송\n");
+				//TRACE("[송신 실패]레이더분석-운용 LOB 전송\n");
+                sprintf( stMsg.szContents, "레이더분석-운용 LOB 전송" );
+                ::SendMessage( g_DlgHandle, UWM_USER_LOG_MSG, (WPARAM) enSEND_FAIL, (LPARAM) & stMsg.szContents[0] );
 			}
 
 			TRACE("LOB 개수  ============================ %d\n", stResLOBData.stLOBHeader.iNumOfLOB);
 			//빔 데이터 전송
-			for(int i=0; i< stResABTData.stABTHeader.iNumOfABT; i++)
+			for(int i=0; i< stResABTData.stABTHeader.iNumOfABT; i++) {
 				bRtnSend = m_hCommIF.Send(OPCODE_BD_OV_SENDBEAM, sizeof(SRxABTData), i_stMsg.ucLinkID, Equip_Rev_0V, m_OVIP, &stResABTData.stABTData[i]);	
+            }
 
 			if(bRtnSend == true)
 			{
