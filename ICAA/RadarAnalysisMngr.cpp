@@ -1318,7 +1318,7 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 
 			//다음 과제 전송
 			//방탐정보 수신국 3군데서 받은 후 다음 과제 전송
-			if(m_bAsqTotalFlag == true || (m_bAsqDoneFlag[SEND_DP_1] /*&& m_bAsqDoneFlag[SEND_DP_2] && m_bAsqDoneFlag[SEND_DP_3]*/))
+			if( true || m_bAsqTotalFlag == true || (m_bAsqDoneFlag[SEND_DP_1] /*&& m_bAsqDoneFlag[SEND_DP_2] && m_bAsqDoneFlag[SEND_DP_3]*/))
 			{
 				ClearAsqDoneFlag();
 				TRACE("===*************88 과제 수집 완료로 인한 다음과제 요청***********==========\n");

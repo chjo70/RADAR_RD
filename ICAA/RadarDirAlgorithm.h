@@ -68,10 +68,6 @@ typedef struct {
     int iCollectorID;
     ENUM_BANDWIDTH enBandWidth;
 
-    unsigned int uiCount;
-
-    int dummy;
-
 } STR_ELINT_HEADER ;
 #endif
 
@@ -106,7 +102,10 @@ struct STR_PDWDATA {
     } x;
 
     UINT uiTotalPDW;
-    int _dummy;
+
+    __time32_t tColTime;
+	UINT uiColTimeMs;
+	UINT _dummy;
 
     _PDW stPDW[MAX_PDW];
 

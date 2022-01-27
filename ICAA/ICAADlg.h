@@ -54,7 +54,7 @@ public:
 	afx_msg void OnBnClickedBtnSavelog();
 	afx_msg void OnBnClickedBtnClearlog();
 
-	CICAAMngr m_cICAAMngr;
+	CICAAMngr *m_pTheICAAMngr;
 	CDFTaskMngr m_DFTaskMngr;
 	CDFEquipBITMngr m_DFEquipBITMngr;
 	CRadarAnalysisMngr m_RadarAnlyMngr;
@@ -62,4 +62,5 @@ public:
 	CMFCButton m_CButtonOperatorStatus;
 	CMFCButton m_CButtonRadarDRStatus;
 	afx_msg void OnBnClickedBtnLoadcedeob();
+	afx_msg void OnDestroy();
 };

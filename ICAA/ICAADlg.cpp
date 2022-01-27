@@ -93,6 +93,7 @@ BEGIN_MESSAGE_MAP(CICAADlg, CDialogEx)
 	ON_MESSAGE(UWM_USER_LOG_MSG, OnLOGMessage )
 	ON_MESSAGE(UWM_USER_STAT_MSG, OnStatus )
 	ON_BN_CLICKED(IDC_BTN_LOADCEDEOB, &CICAADlg::OnBnClickedBtnLoadcedeob)
+	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 
@@ -107,6 +108,11 @@ BOOL CICAADlg::OnInitDialog()
 	// IDM_ABOUTBOX는 시스템 명령 범위에 있어야 합니다.
 	ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
 	ASSERT(IDM_ABOUTBOX < 0xF000);
+
+	// TODO: 여기에 추가 초기화 작업을 추가합니다.
+	// 최상단 메뉴 틀 제공
+	g_DlgHandle = GetSafeHwnd();
+
 
 	CMenu* pSysMenu = GetSystemMenu(FALSE);
 	if (pSysMenu != NULL)
@@ -127,9 +133,6 @@ BOOL CICAADlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// 큰 아이콘을 설정합니다.
 	SetIcon(m_hIcon, FALSE);		// 작은 아이콘을 설정합니다.
 
-	// TODO: 여기에 추가 초기화 작업을 추가합니다.
-	// 최상단 메뉴 틀 제공
-	g_DlgHandle = GetSafeHwnd();
 
 	CRect rt;
 
@@ -144,6 +147,10 @@ BOOL CICAADlg::OnInitDialog()
 	m_LoglistCtrl.InsertColumn(2, TEXT("내용"), LVCFMT_LEFT, (int)(rt.Width()*0.8));
 
 	this->SetWindowText("레이더 분석(관리/식별)");
+
+	m_pTheICAAMngr = new CICAAMngr;
+
+
 	//CICAAMngr::GetInstance();
 	CADSBReceivedProcessMngr::GetInstance();
 
@@ -427,4 +434,14 @@ void CICAADlg::OnBnClickedBtnLoadcedeob()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 
 	RadarAnlAlgotirhm::RadarAnlAlgotirhm::UpdateCEDEOBLibrary();
+}
+
+
+void CICAADlg::OnDestroy()
+{
+	CDialogEx::OnDestroy();
+
+	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
+	delete m_pTheICAAMngr;
+
 }

@@ -683,17 +683,18 @@ UINT CGRCommObj::TcpServerThreadFunc(LPVOID arg)
 
 								switch( stClientAddress.sin_addr.S_un.S_un_b.s_b4 ) {
 									case 199 :
-									sprintf( stMsg.szContents, "[운용 소프트웨어, 소켓 : %d,  연결성공]", hClientSocket );
-									::SendMessage( g_DlgHandle, UWM_USER_LOG_MSG, (WPARAM) enSYSTEM, (LPARAM) & stMsg.szContents[0] );
+										sprintf( stMsg.szContents, "[운용 소프트웨어, 소켓 : %d,  연결성공]", hClientSocket );
+										::SendMessage( g_DlgHandle, UWM_USER_LOG_MSG, (WPARAM) enSYSTEM, (LPARAM) & stMsg.szContents[0] );
 
-									::SendMessage( g_DlgHandle, UWM_USER_STAT_MSG, (WPARAM) enOperator, (LPARAM) TRUE );
+										::SendMessage( g_DlgHandle, UWM_USER_STAT_MSG, (WPARAM) enOperator, (LPARAM) TRUE );
 										break;
 
 									case 54 :
-									sprintf( stMsg.szContents, "[레이더 방탐, 소켓 : %d,  연결성공]", hClientSocket );
-									::SendMessage( g_DlgHandle, UWM_USER_LOG_MSG, (WPARAM) enSYSTEM, (LPARAM) & stMsg.szContents[0] );
+										sprintf( stMsg.szContents, "[레이더 방탐, 소켓 : %d,  연결성공]", hClientSocket );
+										::SendMessage( g_DlgHandle, UWM_USER_LOG_MSG, (WPARAM) enSYSTEM, (LPARAM) & stMsg.szContents[0] );
 
-									::SendMessage( g_DlgHandle, UWM_USER_STAT_MSG, (WPARAM) enRADARDR, (LPARAM) TRUE );
+										::SendMessage( g_DlgHandle, UWM_USER_STAT_MSG, (WPARAM) enRADARDR, (LPARAM) TRUE );
+										break;
 								}
 								
 
