@@ -6,3 +6,7 @@
 *.lastbuildstate
 *.idb
 *.pdb
+*.exe
+*.manifest
+*.pch
+*.res
