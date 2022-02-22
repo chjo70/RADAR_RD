@@ -1,0 +1,5 @@
+*.tlog
+
+*.bak
+*.obj
+*.log
