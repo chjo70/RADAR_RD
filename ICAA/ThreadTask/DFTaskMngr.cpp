@@ -804,29 +804,29 @@ void CDFTaskMngr::ProcessMsg(STMsg& i_stMsg)
 
 		case OPCODE_DP_TF_RSTPDW: //PDW 데이터 결과
 		{
-			RX_STR_PDWDATA stPDWData;
+			RX_STR_PDWDATA stRxPDWData;
 			TRACE("recv buf size %d\n", i_stMsg.usMSize);
-			memcpy(&stPDWData, i_stMsg.buf, i_stMsg.usMSize);			
+			memcpy(&stRxPDWData, i_stMsg.buf, i_stMsg.usMSize);			
 
 			PDW_DATA *pPDW;		
-			STR_PDWDATA stPDWDataToAOA;
+			STR_PDWDATA stPDWData;
 			_PDW *pPDWToAOA;
 
-			int nCnt = stPDWData.count;
-			pPDW = stPDWData.stPDW;
-			pPDWToAOA = stPDWDataToAOA.stPDW;
+			int nCnt = stRxPDWData.count;
+			pPDW = stRxPDWData.stPDW;
+			pPDWToAOA = & stPDWData.pstPDW[0];
 
 			//////////////LOB데이터 생성
-			memcpy(stPDWDataToAOA.x.el.aucTaskID, stPDWData.aucTaskID, sizeof(stPDWData.aucTaskID));
+			memcpy(stPDWData.x.el.aucTaskID, stRxPDWData.aucTaskID, sizeof(stRxPDWData.aucTaskID));
 			//stPDWDataToAOA.iIsStorePDW = stPDWData.stPDW;			// 0 또는 1, PDW 저장되었으면 1로 설정함.
-			stPDWDataToAOA.x.el.iCollectorID = stPDWData.iCollectorID;			// 1, 2, 3 중에 하나이어야 한다. (수집소)			
-			stPDWDataToAOA.x.el.iIsStorePDW = 1;
+			stPDWData.x.el.iCollectorID = stRxPDWData.iCollectorID;			// 1, 2, 3 중에 하나이어야 한다. (수집소)			
+			stPDWData.x.el.iIsStorePDW = 1;
 
 			/* data 확인 필요 */
 			if(m_stCurTaskData.uiNBDRBandWidth == 1)
-				stPDWDataToAOA.x.el.enBandWidth = en50MHZ_BW;
+				stPDWData.x.el.enBandWidth = en50MHZ_BW;
 			else
-				stPDWDataToAOA.x.el.enBandWidth = en5MHZ_BW;
+				stPDWData.x.el.enBandWidth = en5MHZ_BW;
 			//////////////LOB데이터 생성
 
 			int Freq, freqLOB;
@@ -886,11 +886,11 @@ void CDFTaskMngr::ProcessMsg(STMsg& i_stMsg)
 
 						TRACE("======= RESULT AOA  VAL  %d =======\n", i_AOA);
 						//값 확인 필요 pPDW->iFreq, pPDW->iPulseType, pPDW->iPA, pPDW->iPW, pPDW->llTOA
-						pPDWToAOA->iFreq = freqLOB;
-						pPDWToAOA->iAOA = i_AOA;
+						pPDWToAOA->uiFreq = freqLOB;
+						pPDWToAOA->uiAOA = i_AOA;
 						pPDWToAOA->iPulseType = pPDW->iPulseType;
-						pPDWToAOA->iPA = pPDW->iPA;
-						pPDWToAOA->iPW = pPDW->iPW;
+						pPDWToAOA->uiPA = pPDW->iPA;
+						pPDWToAOA->uiPW = pPDW->iPW;
 						pPDWToAOA->ullTOA = pPDW->llTOA;		
 						pPDWToAOA->iPFTag = pPDW->iPFTag;
 						pPDWToAOA->fPh1 = fph[1];
@@ -910,7 +910,8 @@ void CDFTaskMngr::ProcessMsg(STMsg& i_stMsg)
 				}
 			}			
 
-			stPDWDataToAOA.uiTotalPDW = bufcnt;				// 수집 PDW 개수는 최대 4096 개
+            stPDWData.SetTotalPDW( bufcnt );
+			//stPDWDataToAOA.uiTotalPDW = bufcnt;				// 수집 PDW 개수는 최대 4096 개
 
 			//재귀호출
 			if(m_iMode == MODE_INIT_TYPE || m_iMode == MODE_CH_TYPE) // 채널보정
@@ -983,7 +984,7 @@ void CDFTaskMngr::ProcessMsg(STMsg& i_stMsg)
 			{
 				///////////////////////////////////////////////////////////////////////////////
 				//조철희 수석님의 PDW데이타에서 LOB 추출 알고리즘 호출			
-				RadarDirAlgotirhm::RadarDirAlgotirhm::Start( & stPDWDataToAOA );
+				RadarDirAlgotirhm::RadarDirAlgotirhm::Start( & stPDWData );
 
 				int nCoLOB=RadarDirAlgotirhm::RadarDirAlgotirhm::GetCoLOB();
 
