@@ -3,3 +3,6 @@
 *.bak
 *.obj
 *.log
+*.lastbuildstate
+*.idb
+*.pdb

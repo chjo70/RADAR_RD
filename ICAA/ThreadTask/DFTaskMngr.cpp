@@ -810,6 +810,9 @@ void CDFTaskMngr::ProcessMsg(STMsg& i_stMsg)
 
 			PDW_DATA *pPDW;		
 			STR_PDWDATA stPDWData;
+
+            stPDWData.pstPDW = ( _PDW * ) malloc( sizeof(_PDW) * 10000 );
+
 			_PDW *pPDWToAOA;
 
 			int nCnt = stRxPDWData.count;
@@ -1012,6 +1015,8 @@ void CDFTaskMngr::ProcessMsg(STMsg& i_stMsg)
 				//ReqPDWNextTask(m_bIsTaskStop);
 				/////////분석에서 과제관리해서 주석처리///////////
 			}
+
+            free( stPDWData.pstPDW );
 		}
 		break;
 
