@@ -227,7 +227,7 @@ CDFTaskMngr::CDFTaskMngr()
 	m_stSystemVal.uiRxThresholdMode = 0;
 	m_stSystemVal.uiCWDecisionPW = 245000;
 	m_stSystemVal.uiCWChoppinginterval = 245000;
-	m_stSystemVal.uiSignalCheckTime = 1000;
+	m_stSystemVal.uiSignalCheckTime = 4000;
 	m_stSystemVal.uiSignalCheckPulseNumber = 1;
 	m_stSystemVal.uiFilterType = 0;
 	m_stSystemVal.uilsCWFilterApply = 0;

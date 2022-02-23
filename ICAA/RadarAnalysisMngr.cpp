@@ -1264,11 +1264,12 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 			STR_LOBDATA stLOBData;
 
 			stLOBData.stLOBHeader.iNumOfLOB = i_stMsg.usMSize / sizeof(SRxLOBData);
+			memcpy(&stLOBData.stLOBData, i_stMsg.buf, i_stMsg.usMSize);
+
 			//TRACE("**************[수신]레이더분석-레이더방탐 LOB 수신 개수%d============\n", stLOBData.stLOBHeader.iNumOfLOB);
 			sprintf( stMsg.szContents, "레이더분석-레이더방탐 LOB 수신 개수 : %d", stLOBData.stLOBHeader.iNumOfLOB );
 			::SendMessage( g_DlgHandle, UWM_USER_LOG_MSG, (WPARAM) enRECV, (LPARAM) & stMsg.szContents[0] );
-
-			memcpy(&stLOBData.stLOBData, i_stMsg.buf, i_stMsg.usMSize);
+			
 			//STR_ABTDATA *pABTData, txABTData;
 			RadarAnlAlgotirhm::RadarAnlAlgotirhm::Start(&stLOBData);
 			//RadarAnlAlgotirhm::RadarAnlAlgotirhm::UpdateCEDEOBLibrary();
@@ -1283,6 +1284,9 @@ void CRadarAnalysisMngr::ProcessMsg(STMsg& i_stMsg)
 			///////////////////////////////////////////////////////////////////////////////
 			//LOB 데이터 전송
 			for(int i=0; i< stResLOBData.stLOBHeader.iNumOfLOB; i++) {
+				sprintf( stMsg.szContents, " 위협 관리 : LOB#[%d], ABT#[%d]", stLOBData.stLOBData[i].uiLOBID, stLOBData.stLOBData[i].uiABTID );
+				::SendMessage( g_DlgHandle, UWM_USER_LOG_MSG, (WPARAM) enRECV, (LPARAM) & stMsg.szContents[0] );
+
 				bRtnSend = m_hCommIF.Send(OPCODE_BD_OV_SENDLOB, sizeof(SRxLOBData), i_stMsg.ucLinkID, Equip_Rev_0V, m_OVIP, &stResLOBData.stLOBData[i]);	
             }
 

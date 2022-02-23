@@ -231,9 +231,11 @@ struct SRxTSGCtrlResult{    //수집시작 결과
 struct STxAcqStartRequest{   //수집시작 요구
 	UINT	uiMode;
 	UINT	uiStartLOBId;
+	UINT	uiAntPathDir;
 	STxAcqStartRequest() :
 	uiMode(0),
-		uiStartLOBId(0)
+		uiStartLOBId(0),
+		uiAntPathDir(0)
 	{
 	}
 };

@@ -24,7 +24,7 @@ using namespace std;
 
 // 응용 프로그램 정보에 사용되는 CAboutDlg 대화 상자입니다.
 
-#define     MAX_LOGCOUNT        (100)
+#define     MAX_LOGCOUNT        (1000)
 
 class CAboutDlg : public CDialogEx
 {
