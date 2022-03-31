@@ -822,7 +822,7 @@ void CDFTaskMngr::ProcessMsg(STMsg& i_stMsg)
 			//////////////LOB데이터 생성
 			memcpy(stPDWData.x.el.aucTaskID, stRxPDWData.aucTaskID, sizeof(stRxPDWData.aucTaskID));
 			//stPDWDataToAOA.iIsStorePDW = stPDWData.stPDW;			// 0 또는 1, PDW 저장되었으면 1로 설정함.
-			stPDWData.x.el.iCollectorID = stRxPDWData.iCollectorID;			// 1, 2, 3 중에 하나이어야 한다. (수집소)			
+			stPDWData.x.el.enCollectorID = (EN_RADARCOLLECTORID) stRxPDWData.iCollectorID;			// 1, 2, 3 중에 하나이어야 한다. (수집소)			
 			stPDWData.x.el.iIsStorePDW = 1;
 
 			/* data 확인 필요 */
