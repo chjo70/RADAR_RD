@@ -198,6 +198,8 @@ CRadarAnalysisMngr::CRadarAnalysisMngr()
 	// 시작시 한번만 호출하면 됩니다.
 
 	RadarAnlAlgotirhm::RadarAnlAlgotirhm::Init( NULL, false, true );
+    m_lOpInitID=RadarAnlAlgotirhm::RadarAnlAlgotirhm::GetOPInitID();
+
 }
 
 CRadarAnalysisMngr::~CRadarAnalysisMngr()

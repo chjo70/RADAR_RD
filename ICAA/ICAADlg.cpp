@@ -146,9 +146,14 @@ BOOL CICAADlg::OnInitDialog()
 	m_LoglistCtrl.InsertColumn(1, TEXT("항목"), LVCFMT_LEFT, (int)(rt.Width()*0.1));
 	m_LoglistCtrl.InsertColumn(2, TEXT("내용"), LVCFMT_LEFT, (int)(rt.Width()*0.8));
 
-	this->SetWindowText("레이더 분석(관리/식별)");
+
 
 	m_pTheICAAMngr = new CICAAMngr;
+
+    m_lOpInitID = m_RadarAnlyMngr.GetOPInitID();
+    char buffer[100];
+    sprintf( buffer, "레이더 분석(관리/식별)[%d]" , m_lOpInitID );
+    this->SetWindowText( buffer );
 
 
 	//CICAAMngr::GetInstance();
