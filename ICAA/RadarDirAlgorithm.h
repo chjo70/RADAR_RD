@@ -718,6 +718,10 @@ struct SRxLOBData {
     unsigned int uiSeqNum;
 
 #else
+#endif
+
+#ifdef _XBAND_
+	unsigned int uiOpInitID;
 
 #endif
 
