@@ -34,7 +34,7 @@ namespace XBAND {
 #define _XBAND_ENUM_BANDWIDTH_
     typedef enum {
         en5MHZ_BW = 0,
-        en150MHZ_BW,
+        en120MHZ_BW,
 
         enUnknown_BW = 2,
 
