@@ -70,6 +70,35 @@ typedef enum {
 #pragma pack( push, 1 )
 #endif
 
+#ifndef _UNI_PDW_ETC
+#define _UNI_PDW_ETC
+typedef union {
+    struct {
+    float fPh1;
+    float fPh2;
+    float fPh3;
+    float fPh4;
+    } el;
+
+    struct {
+    float fPh1;
+    float fPh2;
+    float fPh3;
+    float fPh4;
+    float fPh5;
+    } xb;
+
+    struct {
+    int iPMOP;
+    int iFMOP;
+
+    int iChannel;
+    } ps;
+
+} UNI_PDW_ETC ;
+
+#endif
+
 #ifndef _PDW_STRUCT
 #define _PDW_STRUCT
 typedef struct {
@@ -84,25 +113,7 @@ typedef struct {
 
     int iPFTag;
 
-#if defined(_ELINT_)
-    float fPh1;
-    float fPh2;
-    float fPh3;
-    float fPh4;
-
-#elif defined(_XBAND_)
-    float fPh1;
-    float fPh2;
-    float fPh3;
-    float fPh4;
-    float fPh5;
-
-#elif _POCKETSONATA_
-    int iPMOP;
-    int iFMOP;
-
-    int iChannel;
-#endif
+    UNI_PDW_ETC x;
 
     unsigned long long int GetTOA() {
         return ullTOA;
@@ -164,7 +175,7 @@ namespace XBAND {
 #define _XBAND_ENUM_BANDWIDTH_
     typedef enum {
         en5MHZ_BW = 0,
-        en150MHZ_BW,
+        en120MHZ_BW,
 
         enUnknown_BW = 2,
 
@@ -316,7 +327,7 @@ typedef struct {
 
 	}
 
-} POCKETSONATA_HEADER ;
+} STR_POCKETSONATA_HEADER ;
 #endif
 
 
@@ -354,7 +365,7 @@ typedef union {
 	STR_ELINT_HEADER el;
     STR_XBAND_HEADER xb;
 
-	POCKETSONATA_HEADER ps;
+	STR_POCKETSONATA_HEADER ps;
 
 	SONATA_HEADER so;
 
@@ -639,7 +650,7 @@ struct SRxLOBData {
     float fDOAMax;
     float fDOAMin;
     float fDOADeviation;							// [0.1도]
-    float fDOASDeviation;
+    float fDOAMode;             // DOA 최빈수
 
     int iDIRatio;					// [1 %]
 
@@ -649,7 +660,8 @@ struct SRxLOBData {
     float fFreqMean;				// [10KHz]
     float fFreqMax;
     float fFreqMin;
-    float fFreqDeviation;                           //
+    float fFreqDeviation;
+    float fFreqMode;            // Freq 최빈수
     int iFreqPositionCount;
     int iFreqElementCount;
     float fFreqSeq[MAX_FREQ_PRI_STEP];	// 주파수 단값
@@ -661,6 +673,7 @@ struct SRxLOBData {
     float fPRIMax;
     float fPRIMin;
     float fPRIDeviation;			// [1ns]
+    float fPRIMode;             // PRI 최빈수
     float fPRIJitterRatio;			// [%]
     int iPRIPositionCount;
     int iPRIElementCount;
@@ -670,11 +683,13 @@ struct SRxLOBData {
     float fPWMax;
     float fPWMin;
     float fPWDeviation;
+    float fPWMode;              // 펄스폭 최빈수
 
-    float fPAMean;				// 기존대로
+    float fPAMean;
     float fPAMax;
     float fPAMin;
-    float fPADeviation;			// 기존대로
+    float fPADeviation;
+    float fPAMode;              // 신호세기 최빈수
 
 #if defined(_XBAND_) || defined(_ELINT_)
 #else
@@ -803,7 +818,7 @@ namespace RadarDirAlgotirhm
 		static MATHFUNCSDLL_API int GetCoLOB();
 		static MATHFUNCSDLL_API SRxLOBData *GetLOBData();
 
-        static MATHFUNCSDLL_API LONG GetOPInitID();
+        static MATHFUNCSDLL_API unsigned int GetOpInitID();
 
 #pragma data_seg( ".ioshare" )
         // static CLog *g_pTheLog;

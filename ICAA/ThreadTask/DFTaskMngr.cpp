@@ -827,7 +827,7 @@ void CDFTaskMngr::ProcessMsg(STMsg& i_stMsg)
 
 			/* data 확인 필요 */
 			if(m_stCurTaskData.uiNBDRBandWidth == 1)
-				stPDWData.x.xb.enBandWidth = XBAND::en150MHZ_BW;
+				stPDWData.x.xb.enBandWidth = XBAND::en120MHZ_BW;
 			else
 				stPDWData.x.xb.enBandWidth = XBAND::en5MHZ_BW;
 			//////////////LOB데이터 생성
@@ -896,10 +896,11 @@ void CDFTaskMngr::ProcessMsg(STMsg& i_stMsg)
 						pPDWToAOA->uiPW = pPDW->iPW;
 						pPDWToAOA->ullTOA = pPDW->llTOA;		
 						pPDWToAOA->iPFTag = pPDW->iPFTag;
-						pPDWToAOA->fPh1 = fph[1];
-						pPDWToAOA->fPh2 = fph[2];
-						pPDWToAOA->fPh3 = fph[3];
-						pPDWToAOA->fPh4 = fph[4];
+                        pPDWToAOA->x.xb.fPh1 = fph[0];
+                        pPDWToAOA->x.xb.fPh2 = fph[1];
+                        pPDWToAOA->x.xb.fPh3 = fph[2];
+                        pPDWToAOA->x.xb.fPh4 = fph[3];
+                        pPDWToAOA->x.xb.fPh5 = fph[4];
 
 						bufcnt++;
 					}
