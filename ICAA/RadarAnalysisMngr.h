@@ -33,6 +33,9 @@ struct STMsg;
 
 class CRadarAnalysisMngr : public CMsgQueueThread, public CCommonMngr
 {
+private:
+    unsigned int m_uiOpInitID;
+
 public:
 	CRadarAnalysisMngr();
 	~CRadarAnalysisMngr(void);
@@ -70,6 +73,8 @@ public:
 	void ClearAsqDoneFlag();
 	void ClearDensityFlag();
 	void ClearEquipInitFlag(int i_nEqType);
+
+    inline unsigned int GetOpInitID() { return m_uiOpInitID; }
 	
 	//bool m_bRevAsqDataFromDP[RCV_DP_NUM];
 	bool m_bDensityFlag[RCV_DP_NUM];

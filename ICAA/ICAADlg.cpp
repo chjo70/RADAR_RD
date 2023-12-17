@@ -6,7 +6,7 @@
 #include "ICAA.h"
 #include "ICAADlg.h"
 
-#include "ThreadTask\\DFTaskMngr.h"
+#include "ThreadTask/DFTaskMngr.h"
 #include "ADSBReceivedProcessMngr.h"
 
 #include "RadarAnlAlgorithm.h"
@@ -146,9 +146,15 @@ BOOL CICAADlg::OnInitDialog()
 	m_LoglistCtrl.InsertColumn(1, TEXT("항목"), LVCFMT_LEFT, (int)(rt.Width()*0.1));
 	m_LoglistCtrl.InsertColumn(2, TEXT("내용"), LVCFMT_LEFT, (int)(rt.Width()*0.8));
 
-	this->SetWindowText("레이더 분석(관리/식별)");
+
 
 	m_pTheICAAMngr = new CICAAMngr;
+
+    m_lOpInitID = -1; // m_RadarAnlyMngr.GetOpInitID();
+    char buffer[100];
+    //sprintf( buffer, "레이더 분석(관리/식별)[%d]" , m_lOpInitID );
+    sprintf( buffer, "레이더 분석(관리/식별)" );
+    this->SetWindowText( buffer );
 
 
 	//CICAAMngr::GetInstance();

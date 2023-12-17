@@ -679,17 +679,18 @@ UINT CGRCommObj::TcpServerThreadFunc(LPVOID arg)
 							else
 							{
 								cGRCommObj->AddClientInfo(hClientSocket, stClientAddress.sin_addr.S_un.S_un_b.s_b4, stClientAddress.sin_addr.S_un.S_un_b.s_b4, false);
-								TRACE("AddClientInfo IP %d============== \n", stClientAddress.sin_addr.S_un.S_un_b.s_b4);
+								TRACE("AddClientInfo IP %d.%d.%d.%d============== \n", stClientAddress.sin_addr.S_un.S_un_b.s_b1, stClientAddress.sin_addr.S_un.S_un_b.s_b2, stClientAddress.sin_addr.S_un.S_un_b.s_b3, stClientAddress.sin_addr.S_un.S_un_b.s_b4);
 
 								switch( stClientAddress.sin_addr.S_un.S_un_b.s_b4 ) {
-									case 199 :
+                                    case 1 :
+									case OPERID_1 :
 										sprintf( stMsg.szContents, "[운용 소프트웨어, 소켓 : %d,  연결성공]", hClientSocket );
 										::SendMessage( g_DlgHandle, UWM_USER_LOG_MSG, (WPARAM) enSYSTEM, (LPARAM) & stMsg.szContents[0] );
 
 										::SendMessage( g_DlgHandle, UWM_USER_STAT_MSG, (WPARAM) enOperator, (LPARAM) TRUE );
 										break;
 
-									case 54 :
+									case SYSTEM_CLR_EQUIP1 :
 										sprintf( stMsg.szContents, "[레이더 방탐, 소켓 : %d,  연결성공]", hClientSocket );
 										::SendMessage( g_DlgHandle, UWM_USER_LOG_MSG, (WPARAM) enSYSTEM, (LPARAM) & stMsg.szContents[0] );
 

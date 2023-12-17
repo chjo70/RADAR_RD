@@ -16,14 +16,31 @@
 // RADARDIR 프로젝트 내에서 최소 내용만 구조체 정의를 복사한 것임.
 
 
-#ifndef _ENUM_BANDWIDTH_
-#define _ENUM_BANDWIDTH_
-typedef enum {
-	en5MHZ_BW=0,
-	en50MHZ_BW,
+namespace ELINT {
+#ifndef _ELINT_ENUM_BANDWIDTH_
+#define _ELINT_ENUM_BANDWIDTH_
+    typedef enum {
+        en5MHZ_BW = 0,
+        en50MHZ_BW,
 
-} ENUM_BANDWIDTH ;
+        enUnknown_BW = 2,
+
+    } ENUM_BANDWIDTH;
 #endif
+}
+
+namespace XBAND {
+#ifndef _XBAND_ENUM_BANDWIDTH_
+#define _XBAND_ENUM_BANDWIDTH_
+    typedef enum {
+        en5MHZ_BW = 0,
+        en150MHZ_BW,
+
+        enUnknown_BW = 2,
+
+    } ENUM_BANDWIDTH;
+#endif
+}
 
 #ifndef _STR_LOBHEADER
 #define _STR_LOBHEADER
@@ -101,19 +118,15 @@ struct SRxABTData { // 레이더 분석
 	int iRadarModePriority;
 	int iRadarPriority;
 
-#ifndef _XBAND_
+#if defined(_POCKETSONATA_) || defined(_ELINT_)
 	int iPolarization;
 
 #endif
-
-#if defined(_POCKETSONATA_) || defined(_ELINT_) || defined(_XBAND_)
-
 
 	float fDOAMean;                                 // [0.1도]
 	float fDOAMax;
 	float fDOAMin;
 	float fDOADeviation;				// [0.1도]
-#endif
 
 	int iFreqType;
 	int iFreqPatternType;
@@ -152,7 +165,7 @@ struct SRxABTData { // 레이더 분석
 	float fPAMin;
 	float fPADeviation;
 
-#ifndef _XBAND_
+#if defined(_POCKETSONATA_) || defined(_ELINT_)
 	int iScanType;
 	float fMeanScanPeriod;			// [usec]
 	float fMaxScanPeriod;			// [usec]
@@ -180,7 +193,7 @@ struct SRxABTData { // 레이더 분석
 	int iRadarModeIndex;
 	int iThreatIndex;
 
-#ifndef _XBAND_
+#if defined(_POCKETSONATA_) || defined(_ELINT_)
 	int iIsManualInput;
 
 	__time32_t tiFinalAlarmTime;
@@ -301,6 +314,8 @@ namespace RadarAnlAlgotirhm
 
 		static MATHFUNCSDLL_API bool GetLOBData( STR_LOBDATA *pLOBData );
 		static MATHFUNCSDLL_API bool GetABTData( STR_ABTDATA *pABTData );
+
+        static MATHFUNCSDLL_API unsigned int GetOpInitID();
 
 #pragma data_seg( ".ioshare" )
         // static CLog *g_pTheLog;
